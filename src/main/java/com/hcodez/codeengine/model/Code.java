@@ -1,5 +1,7 @@
 package com.hcodez.codeengine.model;
 
+import org.joda.time.Instant;
+
 import java.net.URL;
 
 /**
@@ -36,6 +38,16 @@ public class Code {
      * Flag that indicated whether the code is public or not
      */
     private Boolean publicStatus = false;
+
+    /**
+     * The timestamp of the creation of the code
+     */
+    private Instant createTime;
+
+    /**
+     * The timestamp of the last edit of the code
+     */
+    private Instant editTime;
 
     public Code() {
 
@@ -88,6 +100,22 @@ public class Code {
 
     public void setPublicStatus(Boolean publicStatus) {
         this.publicStatus = publicStatus;
+    }
+
+    public Instant getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Instant createTime) {
+        this.createTime = createTime;
+    }
+
+    public Instant getEditTime() {
+        return editTime;
+    }
+
+    public void setEditTime(Instant editTime) {
+        this.editTime = editTime;
     }
 
     @Override
