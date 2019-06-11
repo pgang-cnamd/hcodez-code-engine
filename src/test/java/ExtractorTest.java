@@ -10,8 +10,7 @@ public class ExtractorTest {
     public void extractorTest() {
         String input = "4m3kf<ab12>da<123B@cezarmathe>da878uqijkauhcz<ad>>daa,<<ada,<1111@numelemeu!qudadjas22>";
 
-        ArrayList<Code> list = new ArrayList<>();
-        list = Extractor.getCodesFromString(input);
+        ArrayList<Code> list = Extractor.getCodesFromString(input);
 
         System.out.println(list);
     }

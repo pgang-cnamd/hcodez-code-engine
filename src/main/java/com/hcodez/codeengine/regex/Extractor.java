@@ -20,31 +20,29 @@ public class Extractor {
         Matcher matcherPublic               = Patterns.PATTERN_PUBLIC_CODE_NO_PASSCODE.matcher(input);
         Matcher matcherPublicWithPasscode   = Patterns.PATTERN_PUBLIC_CODE_WITH_PASSCODE.matcher(input);
 
+        Code code;
+
         while (matcherPrivate.find()) {
-            list.add(new Code(
-                    matcherPrivate.group("identifier"),
-                    null,
-                    null,
-                    null
-            ));
+            code = new Code();
+            code.setIdentifier(matcherPrivate.group("identifier"));
+            list.add(code);
         }
 
         while (matcherPublic.find()) {
-            list.add(new Code(
-                    matcherPublic.group("identifier"),
-                    matcherPublic.group("owner"),
-                    null,
-                    null
-            ));
+            code = new Code();
+            code.setIdentifier(matcherPublic.group("identifier"));
+            code.setOwner(matcherPublic.group("owner"));
+            code.setPublicStatus(true);
+            list.add(code);
         }
 
         while (matcherPublicWithPasscode.find()) {
-            list.add(new Code(
-                    matcherPublicWithPasscode.group("identifier"),
-                    matcherPublicWithPasscode.group("owner"),
-                    matcherPublicWithPasscode.group("passcode"),
-                    null
-            ));
+            code = new Code();
+            code.setIdentifier(matcherPublicWithPasscode.group("identifier"));
+            code.setOwner(matcherPublicWithPasscode.group("owner"));
+            code.setPasscode(matcherPublicWithPasscode.group("passcode"));
+            code.setPublicStatus(true);
+            list.add(code);
         }
         return list;
     }
