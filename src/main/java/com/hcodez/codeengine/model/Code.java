@@ -1,26 +1,46 @@
 package com.hcodez.codeengine.model;
 
-import java.util.Objects;
+import java.net.URL;
 
 /**
- *  Basic bean for storing basic information related to a code.
+ * Basic bean for storing basic information related to a code.
  */
 public class Code {
 
+    /**
+     * The 4 character code identifier
+     */
     private String identifier;
 
+    /**
+     * The username of the owner
+     */
     private String owner;
 
-    private String passcode;
+    /**
+     * The passcode of this code(null => no passcode)
+     */
+    private String passcode = "";
 
-    private String url;
+    /**
+     * The name of this code
+     */
+    private String name = "";
 
-    public Code(String identifier, String owner, String passcode, String url) {
-        this.identifier = identifier;
-        this.owner = owner;
-        this.passcode = passcode;
-        this.url = url;
+    /**
+     * The API URL used for executing operations on this code
+     */
+    private URL url;
+
+    /**
+     * Flag that indicated whether the code is public or not
+     */
+    private Boolean publicStatus = false;
+
+    public Code() {
+
     }
+
 
     public String getIdentifier() {
         return identifier;
@@ -46,26 +66,28 @@ public class Code {
         this.passcode = passcode;
     }
 
-    public String getUrl() {
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public URL getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(URL url) {
         this.url = url;
     }
 
-    public boolean isPublic() {
-        if (this.owner == null) {
-            return false;
-        }
-        return !this.owner.equals("");
+    public Boolean getPublicStatus() {
+        return this.publicStatus;
     }
 
-    public boolean hasPasscode() {
-        if (this.passcode == null) {
-            return false;
-        }
-        return !this.passcode.equals("");
+    public void setPublicStatus(Boolean publicStatus) {
+        this.publicStatus = publicStatus;
     }
 
     @Override
@@ -75,12 +97,12 @@ public class Code {
         builder.append("<");
         builder.append(identifier);
 
-        if (this.isPublic()) {
+        if (this.getPublicStatus()) {
             builder.append("@");
             builder.append(owner);
         }
 
-        if (this.hasPasscode()) {
+        if (!this.getPasscode().equals("")) {
             builder.append("!");
             builder.append(passcode);
         }
