@@ -1,5 +1,5 @@
 import com.hcodez.codeengine.model.Code;
-import com.hcodez.codeengine.regex.Extractor;
+import com.hcodez.codeengine.Extractor;
 import org.junit.Test;
 
 import java.util.ArrayList;

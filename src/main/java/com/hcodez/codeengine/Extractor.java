@@ -1,6 +1,9 @@
-package com.hcodez.codeengine.regex;
+package com.hcodez.codeengine;
 
 import com.hcodez.codeengine.model.Code;
+import com.hcodez.codeengine.patterns.PrivateCode;
+import com.hcodez.codeengine.patterns.PublicCode;
+import com.hcodez.codeengine.patterns.PublicCodeWithPasscode;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -16,9 +19,9 @@ public class Extractor {
 
         ArrayList<Code> list = new ArrayList<>();
 
-        Matcher matcherPrivate              = Patterns.PATTERN_PRIVATE_CODE.matcher(input);
-        Matcher matcherPublic               = Patterns.PATTERN_PUBLIC_CODE_NO_PASSCODE.matcher(input);
-        Matcher matcherPublicWithPasscode   = Patterns.PATTERN_PUBLIC_CODE_WITH_PASSCODE.matcher(input);
+        Matcher matcherPrivate              = PrivateCode.PATTERN.matcher(input);
+        Matcher matcherPublic               = PublicCode.PATTERN.matcher(input);
+        Matcher matcherPublicWithPasscode   = PublicCodeWithPasscode.PATTERN.matcher(input);
 
         Code code;
 
