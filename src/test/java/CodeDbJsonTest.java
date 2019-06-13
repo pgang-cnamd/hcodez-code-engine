@@ -2,23 +2,16 @@ import com.hcodez.codeengine.model.CodeDb;
 import org.joda.time.Instant;
 import org.junit.Test;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 public class CodeDbJsonTest {
 
     @Test
-    public void jsonToCode() throws MalformedURLException {
+    public void jsonToCode() throws IOException {
 
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = classloader.getResourceAsStream("json/code_db.json");
-
-        assert inputStream != null;
-
-        CodeDb readCode = CodeDb.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+        CodeDb readCode = CodeDb.fromJson(TestCommon.getResourceAsString("json/code_db.json"));
         System.out.println("Code: " + readCode);
         System.out.println("Created at: " + readCode.getCreateTime());
         System.out.println("Edited at: " + readCode.getEditTime());
@@ -26,7 +19,7 @@ public class CodeDbJsonTest {
         System.out.println("Owner ID: " + readCode.getOwnerId());
         System.out.println("Code ID: " + readCode.getId());
 
-        CodeDb goodCode = readCode;
+        CodeDb goodCode = new CodeDb();
         goodCode.setIdentifier("aB12");
         goodCode.setOwner("cezarmathe");
         goodCode.setPasscode("d723y7x28");
@@ -35,12 +28,14 @@ public class CodeDbJsonTest {
         goodCode.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
         goodCode.setCreateTime(new Instant(1560354133));
         goodCode.setEditTime(new Instant(1560357733));
+        goodCode.setId(25);
+        goodCode.setOwnerId(16);
 
-        assert readCode.equals(goodCode);
+        assert checkIdenticalCode(readCode, goodCode);
     }
 
     @Test
-    public void codeToJson() throws MalformedURLException {
+    public void codeToJson() throws MalformedURLException { // FIXME: 2019-06-13 proper test
         CodeDb codeDb = new CodeDb();
         codeDb.setIdentifier("aB12");
         codeDb.setOwner("cezarmathe");
@@ -52,5 +47,17 @@ public class CodeDbJsonTest {
         codeDb.setEditTime(new Instant(1560357733));
 
         System.out.println(codeDb.toJson());
+    }
+
+    private static boolean checkIdenticalCode(CodeDb a, CodeDb b) {
+        return a.getCreateTime().toString().equals(b.getCreateTime().toString()) &&
+                a.getUrl().toString().equals(b.getUrl().toString()) &&
+                a.getEditTime().toString().equals(b.getEditTime().toString()) &&
+                a.getIdentifier().equals(b.getIdentifier()) &&
+                a.getName().equals(b.getName()) &&
+                a.getOwner().equals(b.getOwner()) &&
+                a.getPasscode().equals(b.getPasscode()) &&
+                a.getId().equals(b.getId()) &&
+                a.getOwnerId().equals(b.getOwnerId());
     }
 }
