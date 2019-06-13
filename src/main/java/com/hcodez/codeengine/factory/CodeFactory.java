@@ -1,12 +1,7 @@
 package com.hcodez.codeengine.factory;
 
 import com.hcodez.codeengine.model.Code;
-import com.hcodez.codeengine.patterns.PrivateCode;
-import com.hcodez.codeengine.patterns.PublicCode;
-import com.hcodez.codeengine.patterns.PublicCodeWithPasscode;
-import jdk.internal.vm.compiler.collections.Pair;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
@@ -39,13 +34,9 @@ public class CodeFactory {
      * @return the list of codes
      */
     public ArrayList<Code> getCodeListFromString(String input) {
-        // TODO: 2019-06-13 finish implementing
 
         /*final code list*/
         final ArrayList<Code> codeList = new ArrayList<>();
-
-//        /*temporary code list that stores the start position of the code so that the codes can be sorted*/
-//        final ArrayList<Pair<Code, Integer>> tmpCodeList = new ArrayList<>();
 
         /*extract codes from string*/
         for (final CodeTypes.CodeType codeType : codeTypes) {
@@ -74,16 +65,6 @@ public class CodeFactory {
             }
         }
 
-//        /*sort codes*/
-//        int smallestPosition = input.length();
-//        int smallestIndex = 0;
-//        for (Pair<Code, Integer> pair: tmpCodeList) {
-//
-//
-//
-//        }
-
         return codeList;
     }
-
 }
