@@ -1,13 +1,10 @@
 package com.hcodez.codeengine.model;
 
 import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.hcodez.codeengine.json.InstantDeserializer;
 import com.hcodez.codeengine.json.InstantSerializer;
 import org.joda.time.Instant;
-
-import java.io.Reader;
 
 /**
  * Bean that represents a code exactly as it is in the database(used in the server).

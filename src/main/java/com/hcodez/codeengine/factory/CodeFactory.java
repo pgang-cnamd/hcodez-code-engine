@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
  */
 public class CodeFactory {
 
-    private ArrayList<CodeTypes.CodeType> codeTypes;
+    private final ArrayList<CodeTypes.CodeType> codeTypes;
 
 
     public CodeFactory() {
@@ -20,6 +20,7 @@ public class CodeFactory {
 
     /**
      * Add a code type for the factory to look after.
+     *
      * @param codeType the code type
      * @return this object
      */
@@ -30,6 +31,7 @@ public class CodeFactory {
 
     /**
      * Get a list of codes from a String
+     *
      * @param input the input string
      * @return the list of codes
      */
@@ -62,7 +64,6 @@ public class CodeFactory {
                 } else {
                     code.setPublicStatus(false);
                 }
-
 
                 codeList.add(code);
             }
