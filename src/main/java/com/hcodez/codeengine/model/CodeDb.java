@@ -1,6 +1,8 @@
 package com.hcodez.codeengine.model;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.hcodez.codeengine.json.InstantDeserializer;
 import com.hcodez.codeengine.json.InstantSerializer;
 import org.joda.time.Instant;
@@ -12,8 +14,10 @@ import java.io.Reader;
  */
 public class CodeDb extends Code {
 
+    @SerializedName("id")
     private Integer id;
 
+    @SerializedName("owner_id")
     private Integer ownerId;
 
 

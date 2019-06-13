@@ -1,4 +1,4 @@
-package com.hcodez.codeengine;
+package com.hcodez.codeengine.factory;
 
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.patterns.PrivateCode;
@@ -8,16 +8,22 @@ import com.hcodez.codeengine.patterns.PublicCodeWithPasscode;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
-public class Extractor {
+public class CodeFactory {
+
+
+    public CodeFactory() {
+
+    }
 
     /**
      * Get a list of codes from a String
      * @param input the input string
      * @return the list of codes
      */
-    public static ArrayList<Code> getCodesFromString(String input) {
+    public static ArrayList<Code> createCodeListFromReader(String input, CodeTypes.CodeType... types) {
+        // TODO: 2019-06-13 finish implementing
 
-        ArrayList<Code> list = new ArrayList<>();
+        ArrayList<Code> codeList = new ArrayList<>();
 
         Matcher matcherPrivate              = PrivateCode.PATTERN.matcher(input);
         Matcher matcherPublic               = PublicCode.PATTERN.matcher(input);
@@ -28,7 +34,7 @@ public class Extractor {
         while (matcherPrivate.find()) {
             code = new Code();
             code.setIdentifier(matcherPrivate.group("identifier"));
-            list.add(code);
+            codeList.add(code);
         }
 
         while (matcherPublic.find()) {
@@ -36,7 +42,7 @@ public class Extractor {
             code.setIdentifier(matcherPublic.group("identifier"));
             code.setOwner(matcherPublic.group("owner"));
             code.setPublicStatus(true);
-            list.add(code);
+            codeList.add(code);
         }
 
         while (matcherPublicWithPasscode.find()) {
@@ -45,9 +51,9 @@ public class Extractor {
             code.setOwner(matcherPublicWithPasscode.group("owner"));
             code.setPasscode(matcherPublicWithPasscode.group("passcode"));
             code.setPublicStatus(true);
-            list.add(code);
+            codeList.add(code);
         }
-        return list;
+        return codeList;
     }
 
 }

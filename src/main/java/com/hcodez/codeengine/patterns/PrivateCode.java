@@ -9,5 +9,5 @@ public final class PrivateCode {
      */
     private static final String     REGEX   = "<(?<identifier>[0-9a-zA-Z]{4})>";
     public  static final Pattern    PATTERN = Pattern.compile(REGEX);
-
+    
 }

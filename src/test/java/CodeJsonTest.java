@@ -20,12 +20,11 @@ public class CodeJsonTest {
 
         Code readCode = Code.fromJson(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         System.out.println("Code: " + readCode);
-        // FIXME: 2019-06-12 code not loading timestamps from json
         System.out.println("Created at: " + readCode.getCreateTime());
         System.out.println("Edited at: " + readCode.getEditTime());
         System.out.println("API URL: " + readCode.getUrl().toString());
 
-        Code goodCode = new Code();
+        Code goodCode = readCode;
         goodCode.setIdentifier("aB12");
         goodCode.setOwner("cezarmathe");
         goodCode.setPasscode("d723y7x28");
@@ -35,7 +34,7 @@ public class CodeJsonTest {
         goodCode.setCreateTime(new Instant(1560354133));
         goodCode.setEditTime(new Instant(1560357733));
 
-//        assert readCode.equals(goodCode);
+        assert readCode.equals(goodCode);
     }
 
     @Test

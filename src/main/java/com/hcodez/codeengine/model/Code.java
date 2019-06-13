@@ -1,6 +1,8 @@
 package com.hcodez.codeengine.model;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+import com.hcodez.codeengine.factory.CodeTypes;
 import com.hcodez.codeengine.json.InstantDeserializer;
 import com.hcodez.codeengine.json.InstantSerializer;
 import org.joda.time.Instant;
@@ -16,42 +18,50 @@ public class Code {
     /**
      * The 4 character code identifier
      */
-    protected String identifier;
+    @SerializedName("identifier")
+    private String identifier;
 
     /**
      * The username of the owner
      */
-    protected String owner;
+    @SerializedName("owner")
+    private String owner;
 
     /**
      * The passcode of this code(empty => no passcode)
      */
-    protected String passcode;
+    @SerializedName("passcode")
+    private String passcode;
 
     /**
      * The name of this code
      */
-    protected String name;
+    @SerializedName("name")
+    private String name;
 
     /**
      * The API URL used for executing operations on this code
      */
-    protected URL url;
+    @SerializedName("url")
+    private URL url;
 
     /**
      * Flag that indicated whether the code is public or not
      */
-    protected Boolean publicStatus = false;
+    @SerializedName("public_status")
+    private Boolean publicStatus = false;
 
     /**
      * The timestamp of the creation of the code
      */
-    protected Instant createTime;
+    @SerializedName("create_time")
+    private Instant createTime;
 
     /**
      * The timestamp of the last edit of the code
      */
-    protected Instant editTime;
+    @SerializedName("edit_time")
+    private Instant editTime;
 
 
     public Code() {
@@ -158,5 +168,15 @@ public class Code {
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
         return gsonBuilder.create().fromJson(input, Code.class);
+    }
+
+    public CodeTypes.CodeType getCodeType() {
+        if (!this.publicStatus) {
+            return CodeTypes.PRIVATE;
+        }
+        if (this.passcode.equals("")) {
+            return CodeTypes.PUBLIC_NO_PASSCODE;
+        }
+        return CodeTypes.PUBLIC_WITH_PASSCODE;
     }
 }
