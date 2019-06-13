@@ -4,15 +4,33 @@ import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.patterns.PrivateCode;
 import com.hcodez.codeengine.patterns.PublicCode;
 import com.hcodez.codeengine.patterns.PublicCodeWithPasscode;
+import jdk.internal.vm.compiler.collections.Pair;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 
+/**
+ * Factory for creating code objects.
+ */
 public class CodeFactory {
+
+    private ArrayList<CodeTypes.CodeType> codeTypes;
 
 
     public CodeFactory() {
+        codeTypes = new ArrayList<>();
+    }
 
+
+    /**
+     * Add a code type for the factory to look after.
+     * @param codeType the code type
+     * @return this object
+     */
+    public CodeFactory addCodeType(CodeTypes.CodeType codeType) {
+        this.codeTypes.add(codeType);
+        return this;
     }
 
     /**
@@ -20,39 +38,51 @@ public class CodeFactory {
      * @param input the input string
      * @return the list of codes
      */
-    public static ArrayList<Code> createCodeListFromReader(String input, CodeTypes.CodeType... types) {
+    public ArrayList<Code> getCodeListFromString(String input) {
         // TODO: 2019-06-13 finish implementing
 
-        ArrayList<Code> codeList = new ArrayList<>();
+        /*final code list*/
+        final ArrayList<Code> codeList = new ArrayList<>();
 
-        Matcher matcherPrivate              = PrivateCode.PATTERN.matcher(input);
-        Matcher matcherPublic               = PublicCode.PATTERN.matcher(input);
-        Matcher matcherPublicWithPasscode   = PublicCodeWithPasscode.PATTERN.matcher(input);
+//        /*temporary code list that stores the start position of the code so that the codes can be sorted*/
+//        final ArrayList<Pair<Code, Integer>> tmpCodeList = new ArrayList<>();
 
-        Code code;
+        /*extract codes from string*/
+        for (final CodeTypes.CodeType codeType : codeTypes) {
+            final Matcher matcher = codeType.getPattern().matcher(input);
 
-        while (matcherPrivate.find()) {
-            code = new Code();
-            code.setIdentifier(matcherPrivate.group("identifier"));
-            codeList.add(code);
+            while (matcher.find()) {
+
+                final Code code = new Code();
+
+                code.setIdentifier(matcher.group("identifier"));
+
+                if (matcher.groupCount() > 1) {
+                    code.setOwner(matcher.group("owner"));
+                    code.setPublicStatus(true);
+
+                    if (matcher.groupCount() == 3) {
+                        code.setPasscode(matcher.group("passcode"));
+                    }
+
+                } else {
+                    code.setPublicStatus(false);
+                }
+
+
+                codeList.add(code);
+            }
         }
 
-        while (matcherPublic.find()) {
-            code = new Code();
-            code.setIdentifier(matcherPublic.group("identifier"));
-            code.setOwner(matcherPublic.group("owner"));
-            code.setPublicStatus(true);
-            codeList.add(code);
-        }
+//        /*sort codes*/
+//        int smallestPosition = input.length();
+//        int smallestIndex = 0;
+//        for (Pair<Code, Integer> pair: tmpCodeList) {
+//
+//
+//
+//        }
 
-        while (matcherPublicWithPasscode.find()) {
-            code = new Code();
-            code.setIdentifier(matcherPublicWithPasscode.group("identifier"));
-            code.setOwner(matcherPublicWithPasscode.group("owner"));
-            code.setPasscode(matcherPublicWithPasscode.group("passcode"));
-            code.setPublicStatus(true);
-            codeList.add(code);
-        }
         return codeList;
     }
 

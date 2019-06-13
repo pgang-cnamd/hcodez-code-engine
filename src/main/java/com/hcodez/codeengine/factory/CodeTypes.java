@@ -15,7 +15,6 @@ public class CodeTypes {
      * Interface that represents a single type of code, yielding a pattern for it
      */
     public interface CodeType {
-
         Pattern getPattern();
     }
 

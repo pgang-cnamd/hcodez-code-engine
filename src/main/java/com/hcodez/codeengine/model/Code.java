@@ -146,9 +146,13 @@ public class Code {
             builder.append(owner);
         }
 
-        if (!this.getPasscode().equals("")) {
-            builder.append("!");
-            builder.append(passcode);
+        try {
+            if (!this.getPasscode().equals("")) {
+                builder.append("!");
+                builder.append(passcode);
+            }
+        } catch (Exception ignored) {
+
         }
 
         builder.append(">");
