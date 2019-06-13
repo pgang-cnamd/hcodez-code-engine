@@ -35,6 +35,9 @@ public class CodeFactory {
      */
     public ArrayList<Code> getCodeListFromString(String input) {
 
+        input = input.replaceAll("\\s+", "");
+        input = input.replaceAll("[\n\r]", "");
+
         /*final code list*/
         final ArrayList<Code> codeList = new ArrayList<>();
 
