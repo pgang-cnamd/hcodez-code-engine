@@ -177,8 +177,12 @@ public class Code {
         if (!this.publicStatus) {
             return CodeTypes.PRIVATE;
         }
-        if (this.passcode.equals("")) {
-            return CodeTypes.PUBLIC_NO_PASSCODE;
+        try {
+            if (this.passcode.equals("")) {
+                return CodeTypes.PUBLIC_NO_PASSCODE;
+            }
+        } catch (Exception ignored) {
+            
         }
         return CodeTypes.PUBLIC_WITH_PASSCODE;
     }
