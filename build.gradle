@@ -15,4 +15,5 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'com.google.code.gson:gson:2.8.5'
     compile 'joda-time:joda-time:2.10.2'
+    compile 'com.google.guava:guava:28.0-jre'
 }
