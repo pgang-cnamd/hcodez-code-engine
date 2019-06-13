@@ -167,7 +167,7 @@ public class Code {
         return gsonBuilder.create().toJson(this);
     }
 
-    public static Code fromJson(Reader input) {
+    public static Code fromJson(String input) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
