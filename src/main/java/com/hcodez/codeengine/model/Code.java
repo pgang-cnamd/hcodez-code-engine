@@ -182,7 +182,7 @@ public class Code {
                 return CodeTypes.PUBLIC_NO_PASSCODE;
             }
         } catch (Exception ignored) {
-            
+            return CodeTypes.PUBLIC_NO_PASSCODE;
         }
         return CodeTypes.PUBLIC_WITH_PASSCODE;
     }
