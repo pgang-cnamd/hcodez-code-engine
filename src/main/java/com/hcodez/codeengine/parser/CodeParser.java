@@ -1,4 +1,4 @@
-package com.hcodez.codeengine.factory;
+package com.hcodez.codeengine.parser;
 
 import com.hcodez.codeengine.model.Code;
 
@@ -8,23 +8,23 @@ import java.util.regex.Matcher;
 /**
  * Factory for creating code objects.
  */
-public class CodeFactory {
+public class CodeParser {
 
     private final ArrayList<CodeTypes.CodeType> codeTypes;
 
 
-    public CodeFactory() {
+    public CodeParser() {
         codeTypes = new ArrayList<>();
     }
 
 
     /**
-     * Add a code type for the factory to look after.
+     * Add a code type for the parser to look after.
      *
      * @param codeType the code type
      * @return this object
      */
-    public CodeFactory addCodeType(CodeTypes.CodeType codeType) {
+    public CodeParser addCodeType(CodeTypes.CodeType codeType) {
         this.codeTypes.add(codeType);
         return this;
     }

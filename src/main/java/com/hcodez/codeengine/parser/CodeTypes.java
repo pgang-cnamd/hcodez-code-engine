@@ -1,4 +1,4 @@
-package com.hcodez.codeengine.factory;
+package com.hcodez.codeengine.parser;
 
 import com.hcodez.codeengine.patterns.PrivateCode;
 import com.hcodez.codeengine.patterns.PublicCode;
@@ -7,7 +7,7 @@ import com.hcodez.codeengine.patterns.PublicCodeWithPasscode;
 import java.util.regex.Pattern;
 
 /**
- * A set of code types used for the code factory
+ * A set of code types used for the code parser
  */
 public class CodeTypes {
 

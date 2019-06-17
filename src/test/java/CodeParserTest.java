@@ -1,19 +1,19 @@
-import com.hcodez.codeengine.factory.CodeFactory;
-import com.hcodez.codeengine.factory.CodeTypes;
+import com.hcodez.codeengine.parser.CodeParser;
+import com.hcodez.codeengine.parser.CodeTypes;
 import com.hcodez.codeengine.model.Code;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CodeFactoryTest {
+public class CodeParserTest {
 
     @Test
     public void codeFactoryAllCodeExtractionTest() throws IOException {
 
-        CodeFactory codeFactory = new CodeFactory();
+        CodeParser codeParser = new CodeParser();
 
-        ArrayList<Code> list = codeFactory
+        ArrayList<Code> list = codeParser
                 .addCodeType(CodeTypes.PRIVATE)
                 .addCodeType(CodeTypes.PUBLIC_NO_PASSCODE)
                 .addCodeType(CodeTypes.PUBLIC_WITH_PASSCODE)
