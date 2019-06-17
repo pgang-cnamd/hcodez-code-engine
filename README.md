@@ -1,5 +1,7 @@
 # Code engine
 
+[![Build Status](https://travis-ci.org/pgang-cnamd/hcodez-code-engine.svg?branch=master)](https://travis-ci.org/pgang-cnamd/hcodez-code-engine)
+
 The engine that handles code operations for HCodez.
 
 ## License
