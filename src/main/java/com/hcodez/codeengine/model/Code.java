@@ -173,7 +173,7 @@ public class Code {
         return gsonBuilder.create().fromJson(input, Code.class);
     }
 
-    public CodeType.CodeType getCodeType() {
+    public CodeType getCodeType() {
         if (!this.publicStatus) {
             return CodeType.PRIVATE;
         }
