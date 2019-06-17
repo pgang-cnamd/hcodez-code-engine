@@ -59,8 +59,8 @@ public class Code {
     /**
      * The timestamp of the last edit of the code
      */
-    @SerializedName("edit_time")
-    private Instant editTime;
+    @SerializedName("update_time")
+    private Instant updateTime;
 
 
     public Code() {
@@ -124,12 +124,12 @@ public class Code {
         this.createTime = createTime;
     }
 
-    public Instant getEditTime() {
-        return editTime;
+    public Instant getUpdateTime() {
+        return updateTime;
     }
 
-    public void setEditTime(Instant editTime) {
-        this.editTime = editTime;
+    public void setUpdateTime(Instant updateTime) {
+        this.updateTime = updateTime;
     }
 
 

@@ -13,7 +13,7 @@ public class CodeJsonTest {
         Code readCode = Code.fromJson(TestCommon.getResourceAsString("json/code.json"));
         System.out.println("Code: " + readCode);
         System.out.println("Created at: " + readCode.getCreateTime());
-        System.out.println("Edited at: " + readCode.getEditTime());
+        System.out.println("Edited at: " + readCode.getUpdateTime());
         System.out.println("API URL: " + readCode.getUrl().toString());
         System.out.println("Code name: " + readCode.getName());
         System.out.println("Public status: " + readCode.getPublicStatus());
@@ -26,7 +26,7 @@ public class CodeJsonTest {
         goodCode.setPublicStatus(true);
         goodCode.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
         goodCode.setCreateTime(new Instant(1560354133));
-        goodCode.setEditTime(new Instant(1560357733));
+        goodCode.setUpdateTime(new Instant(1560357733));
 
         assert checkIdenticalCode(readCode, goodCode);
     }
@@ -41,7 +41,7 @@ public class CodeJsonTest {
         code.setPublicStatus(true);
         code.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
         code.setCreateTime(new Instant(1560354133));
-        code.setEditTime(new Instant(1560357733));
+        code.setUpdateTime(new Instant(1560357733));
 
         System.out.println(code.toJson());
     }
@@ -49,7 +49,7 @@ public class CodeJsonTest {
     private static boolean checkIdenticalCode(Code a, Code b) {
         return a.getCreateTime().toString().equals(b.getCreateTime().toString()) &&
                 a.getUrl().toString().equals(b.getUrl().toString()) &&
-                a.getEditTime().toString().equals(b.getEditTime().toString()) &&
+                a.getUpdateTime().toString().equals(b.getUpdateTime().toString()) &&
                 a.getIdentifier().equals(b.getIdentifier()) &&
                 a.getName().equals(b.getName()) &&
                 a.getOwner().equals(b.getOwner()) &&

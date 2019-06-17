@@ -14,7 +14,7 @@ public class CodeDbJsonTest {
         CodeDb readCode = CodeDb.fromJson(TestCommon.getResourceAsString("json/code_db.json"));
         System.out.println("Code: " + readCode);
         System.out.println("Created at: " + readCode.getCreateTime());
-        System.out.println("Edited at: " + readCode.getEditTime());
+        System.out.println("Edited at: " + readCode.getUpdateTime());
         System.out.println("API URL: " + readCode.getUrl().toString());
         System.out.println("Owner ID: " + readCode.getOwnerId());
         System.out.println("Code ID: " + readCode.getId());
@@ -27,7 +27,7 @@ public class CodeDbJsonTest {
         goodCode.setPublicStatus(true);
         goodCode.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
         goodCode.setCreateTime(new Instant(1560354133));
-        goodCode.setEditTime(new Instant(1560357733));
+        goodCode.setUpdateTime(new Instant(1560357733));
         goodCode.setId(25);
         goodCode.setOwnerId(16);
 
@@ -44,7 +44,7 @@ public class CodeDbJsonTest {
         codeDb.setPublicStatus(true);
         codeDb.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
         codeDb.setCreateTime(new Instant(1560354133));
-        codeDb.setEditTime(new Instant(1560357733));
+        codeDb.setUpdateTime(new Instant(1560357733));
 
         System.out.println(codeDb.toJson());
     }
@@ -52,7 +52,7 @@ public class CodeDbJsonTest {
     private static boolean checkIdenticalCode(CodeDb a, CodeDb b) {
         return a.getCreateTime().toString().equals(b.getCreateTime().toString()) &&
                 a.getUrl().toString().equals(b.getUrl().toString()) &&
-                a.getEditTime().toString().equals(b.getEditTime().toString()) &&
+                a.getUpdateTime().toString().equals(b.getUpdateTime().toString()) &&
                 a.getIdentifier().equals(b.getIdentifier()) &&
                 a.getName().equals(b.getName()) &&
                 a.getOwner().equals(b.getOwner()) &&
