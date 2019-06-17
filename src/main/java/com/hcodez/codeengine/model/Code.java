@@ -2,7 +2,7 @@ package com.hcodez.codeengine.model;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.hcodez.codeengine.parser.CodeTypes;
+import com.hcodez.codeengine.parser.CodeType;
 import com.hcodez.codeengine.json.InstantDeserializer;
 import com.hcodez.codeengine.json.InstantSerializer;
 import org.joda.time.Instant;
@@ -173,17 +173,17 @@ public class Code {
         return gsonBuilder.create().fromJson(input, Code.class);
     }
 
-    public CodeTypes.CodeType getCodeType() {
+    public CodeType.CodeType getCodeType() {
         if (!this.publicStatus) {
-            return CodeTypes.PRIVATE;
+            return CodeType.PRIVATE;
         }
         try {
             if (this.passcode.equals("")) {
-                return CodeTypes.PUBLIC_NO_PASSCODE;
+                return CodeType.PUBLIC_NO_PASSCODE;
             }
         } catch (Exception ignored) {
-            return CodeTypes.PUBLIC_NO_PASSCODE;
+            return CodeType.PUBLIC_NO_PASSCODE;
         }
-        return CodeTypes.PUBLIC_WITH_PASSCODE;
+        return CodeType.PUBLIC_WITH_PASSCODE;
     }
 }

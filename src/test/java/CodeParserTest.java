@@ -1,5 +1,5 @@
 import com.hcodez.codeengine.parser.CodeParser;
-import com.hcodez.codeengine.parser.CodeTypes;
+import com.hcodez.codeengine.parser.CodeType;
 import com.hcodez.codeengine.model.Code;
 import org.junit.Test;
 
@@ -14,9 +14,9 @@ public class CodeParserTest {
         CodeParser codeParser = new CodeParser();
 
         ArrayList<Code> list = codeParser
-                .addCodeType(CodeTypes.PRIVATE)
-                .addCodeType(CodeTypes.PUBLIC_NO_PASSCODE)
-                .addCodeType(CodeTypes.PUBLIC_WITH_PASSCODE)
+                .addCodeType(CodeType.PRIVATE)
+                .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
+                .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .getCodeListFromString(
                         TestCommon.getResourceAsString("plain_text/code_factory_code_list.txt")
                 );

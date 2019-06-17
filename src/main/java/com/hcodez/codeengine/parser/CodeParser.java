@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
  */
 public class CodeParser {
 
-    private final ArrayList<CodeTypes.CodeType> codeTypes;
+    private final ArrayList<CodeType.CodeType> codeTypes;
 
 
     public CodeParser() {
@@ -24,7 +24,7 @@ public class CodeParser {
      * @param codeType the code type
      * @return this object
      */
-    public CodeParser addCodeType(CodeTypes.CodeType codeType) {
+    public CodeParser addCodeType(CodeType.CodeType codeType) {
         this.codeTypes.add(codeType);
         return this;
     }
@@ -44,7 +44,7 @@ public class CodeParser {
         final ArrayList<Code> codeList = new ArrayList<>();
 
         /*extract codes from string*/
-        for (final CodeTypes.CodeType codeType : codeTypes) {
+        for (final CodeType.CodeType codeType : codeTypes) {
             final Matcher matcher = codeType.getPattern().matcher(input);
 
             while (matcher.find()) {
