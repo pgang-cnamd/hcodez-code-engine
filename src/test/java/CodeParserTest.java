@@ -13,7 +13,7 @@ public class CodeParserTest {
 
         CodeParser codeParser = new CodeParser();
 
-        ArrayList list = codeParser
+        ArrayList<Code> list = codeParser
                 .addCodeType(CodeType.PRIVATE)
                 .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
                 .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
