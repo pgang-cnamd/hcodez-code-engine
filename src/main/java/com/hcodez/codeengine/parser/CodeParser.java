@@ -10,46 +10,6 @@ import java.util.regex.Matcher;
  */
 public class CodeParser {
 
-    private class Pair <A, B> {
-
-        private A first;
-
-        private B second;
-
-        public Pair() {}
-
-        public Pair(A first, B second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        public A getFirst() {
-            return first;
-        }
-
-        public void setFirst(A first) {
-            this.first = first;
-        }
-
-        public B getSecond() {
-            return second;
-        }
-
-        public void setSecond(B second) {
-            this.second = second;
-        }
-
-        @Override
-        public String toString() {
-            return "(" +
-                    this.first.toString() +
-                    ", " +
-                    this.second.toString() +
-                    ")";
-        }
-    }
-
-
     private final ArrayList<CodeType> codeTypes;
 
 
@@ -78,7 +38,7 @@ public class CodeParser {
      * @param input the input string
      * @return the list of codes
      */
-    public ArrayList parseString(String input) {
+    public ArrayList<Code> parseString(String input) {
 
         /*clean up the input(remove all whitespaces and endlines*/
         input = input.replaceAll("\\s+", "");
@@ -88,23 +48,9 @@ public class CodeParser {
         final ArrayList<Code> finalCodeList = new ArrayList<>();
 
         /*
-        A pairs each are constructed if the parser is instructed to look after a code type => there will be
-        codeTypes.length() number of pairs.
-        B arrays contain <code, startPosition> for a given CodeType and are extracted one at a time, for
-        each CodeType.
-        The local index counter is used to indicate what index are we currently looking at for each B array.
+        initialize the raw parsing output before adding to it
         */
-        final ArrayList
-                <Pair /*A pairs*/
-                        <ArrayList /*B array*/
-                                <Pair /*B array pairs*/
-                                        <Code, /*the actual code*/
-                                         Integer /*the code's starting position in the String*/
-                                         >
-                                >,
-                                Integer /*local index counter*/
-                        >
-                > rawCodeList = new ArrayList<>();
+        final ArrayList<CodeParserCodeTypeDependantRawOutput> rawParseOutput = new ArrayList<>();
 
         /*the number of codes found in total*/
         int universalCodeCount = 0;
@@ -115,10 +61,8 @@ public class CodeParser {
             /*get the current CodeType*/
             final CodeType codeType = codeTypes.get(i);
 
-            /*get the current object for working with the current CodeType*/
-            final Pair<ArrayList<Pair<Code, Integer>>, Integer> workingRawOutput = new Pair<>();
-            workingRawOutput.first = new ArrayList<>();
-            workingRawOutput.second = 0;
+            /*initialize the current code type dependant raw parser output*/
+            final CodeParserCodeTypeDependantRawOutput workingRawOutput = new CodeParserCodeTypeDependantRawOutput();
 
             /*create a new matcher that matches patterns on the given input String*/
             final Matcher matcher = codeType.getPattern().matcher(input);
@@ -144,14 +88,14 @@ public class CodeParser {
                 }
 
                 /*add the code in the workingRawOutput, along with it's start position*/
-                workingRawOutput.first.add(new Pair<>(code, matcher.start()));
+                workingRawOutput.addParserProcessingMaterial(new ParserProcessingMaterial(code, matcher.start()));
 
                 /*increase the universalCodeCount*/
                 universalCodeCount++;
             }
 
-            /*add the extracted raw output into the rawCodeList, then proceed to the next CodeType*/
-            rawCodeList.add(workingRawOutput);
+            /*add the extracted raw output into the rawParseOutput, then proceed to the next CodeType*/
+            rawParseOutput.add(workingRawOutput);
         }
 
         /*process(and sort) the codes into the final code list, then return it*/
@@ -162,38 +106,40 @@ public class CodeParser {
             /*the index of the code with the lowest start position*/
             int codeTypeItemIndexLowestStartPosition = 0;
 
-            for (int rawCodeListIndex = 0; rawCodeListIndex < rawCodeList.size(); rawCodeListIndex++) {
+            /*check the first parsed processing material for each code type*/
+            for (int rawParseOutputIndex = 0; rawParseOutputIndex < rawParseOutput.size(); rawParseOutputIndex++) {
 
                 /*
-                retrieve the start position of the item in the raw code list pointed by the code type
-                current index
+                retrieve the start position of the first item in the raw code list for the current code type
+                if the current code type does not have any parsing material left, skip it
                 */
-                int workingCodeStartPosition = rawCodeList
-                        .get(rawCodeListIndex) /*get the code type raw list*/
-                        .first /*get the code list*/
-                        .get(rawCodeList.get(rawCodeListIndex).second) /*get the pointer of the code type raw list*/
-                        .second; /*get the start position*/
+                int workingCodeStartPosition;
+                try {
+                    workingCodeStartPosition = rawParseOutput.get(rawParseOutputIndex).getCurrentParserProcessingMaterial().getCodeStartPosition();
+                } catch (Exception ignored) {
+                    continue;
+                }
 
                 if (workingCodeStartPosition < lowestStartPosition) {
                     lowestStartPosition = workingCodeStartPosition;
-                    codeTypeItemIndexLowestStartPosition = rawCodeListIndex;
+                    codeTypeItemIndexLowestStartPosition = rawParseOutputIndex;
                 }
             }
 
-            /*extract this round's winning pair*/
-            final Pair<ArrayList<Pair<Code, Integer>>, Integer> winningCodeTypePair = rawCodeList.get(codeTypeItemIndexLowestStartPosition);
+            /*extract this round's winning parser processing material*/
+            final CodeParserCodeTypeDependantRawOutput winningCodeTypeDependantRawOutput = rawParseOutput.get(codeTypeItemIndexLowestStartPosition);
+            final ParserProcessingMaterial winningParserMaterial = winningCodeTypeDependantRawOutput.getCurrentParserProcessingMaterial();
 
             /*add the code in the final code list*/
             finalCodeList.add(
-                    winningCodeTypePair.first.get(winningCodeTypePair.second).first
+                    winningParserMaterial.getCode()
             );
 
-            /*increase the pointer index of the winning pair*/
-            winningCodeTypePair.second++;
-            /*add changes in the raw code list*/
-            rawCodeList.set(codeTypeItemIndexLowestStartPosition, winningCodeTypePair);
+            /*advance to the next parsing material in the winning raw output*/
+            winningCodeTypeDependantRawOutput.removeCurrentProcessingMaterial();
+            rawParseOutput.set(codeTypeItemIndexLowestStartPosition, winningCodeTypeDependantRawOutput);
         }
 
-        return rawCodeList;
+        return finalCodeList;
     }
 }
