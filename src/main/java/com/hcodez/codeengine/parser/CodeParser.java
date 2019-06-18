@@ -25,6 +25,9 @@ public class CodeParser {
      * @return this object
      */
     public CodeParser addCodeType(CodeType codeType) {
+        if (this.codeTypes.contains(codeType))
+            throw new RuntimeException("can't scan for the same code type twice");
+        
         this.codeTypes.add(codeType);
         return this;
     }
@@ -35,7 +38,7 @@ public class CodeParser {
      * @param input the input string
      * @return the list of codes
      */
-    public ArrayList<Code> getCodeListFromString(String input) {
+    public ArrayList<Code> parseString(String input) {
 
         input = input.replaceAll("\\s+", "");
         input = input.replaceAll("[\n\r]", "");

@@ -17,7 +17,7 @@ public class CodeParserTest {
                 .addCodeType(CodeType.PRIVATE)
                 .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
                 .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
-                .getCodeListFromString(
+                .parseString(
                         TestCommon.getResourceAsString("plain_text/code_factory_code_list.txt")
                 );
 
