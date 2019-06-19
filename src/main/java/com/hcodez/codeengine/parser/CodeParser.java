@@ -1,6 +1,7 @@
 package com.hcodez.codeengine.parser;
 
 import com.hcodez.codeengine.model.Code;
+import com.hcodez.codeengine.model.CodeType;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

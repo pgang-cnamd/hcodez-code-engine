@@ -1,7 +1,7 @@
 import assertions.CodeAssert;
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.parser.CodeParser;
-import com.hcodez.codeengine.parser.CodeType;
+import com.hcodez.codeengine.model.CodeType;
 import org.junit.Test;
 
 import java.io.IOException;

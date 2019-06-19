@@ -1,4 +1,4 @@
-package com.hcodez.codeengine.parser;
+package com.hcodez.codeengine.model;
 
 import java.util.regex.Pattern;
 
