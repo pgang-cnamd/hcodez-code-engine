@@ -1,7 +1,9 @@
 import assertions.CodeDbAssert;
 import com.hcodez.codeengine.model.CodeDb;
 import org.joda.time.Instant;
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -30,7 +32,7 @@ public class CodeDbJsonTest {
     }
 
     @Test
-    public void codeToJson() throws MalformedURLException { // FIXME: 2019-06-13 proper test
+    public void codeToJson() throws IOException, JSONException { // FIXME: 2019-06-13 proper test
         CodeDb codeDb = new CodeDb();
         codeDb.setIdentifier("aB12");
         codeDb.setOwner("cezarmathe");
@@ -40,7 +42,9 @@ public class CodeDbJsonTest {
         codeDb.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
         codeDb.setCreateTime(new Instant(1560354133));
         codeDb.setUpdateTime(new Instant(1560357733));
+        codeDb.setId(25);
+        codeDb.setOwnerId(16);
 
-        System.out.println(codeDb.toJson());
+        JSONAssert.assertEquals(codeDb.toJson(), TestCommon.getResourceAsString("json/code_db.json"), true);
     }
 }
