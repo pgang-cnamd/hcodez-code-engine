@@ -1,4 +1,5 @@
 import assertions.CodeAssert;
+import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.parser.CodeParser;
 import com.hcodez.codeengine.model.CodeType;
@@ -24,33 +25,37 @@ public class CodeParserTest {
 
         ArrayList<Code> goodList = new ArrayList<>();
 
-        Code code = new Code();
-        code.setIdentifier("1111");
-        code.setOwner("adasdasdas");
-        code.setPasscode("823ijkdw");
-        code.setPublicStatus(true);
+        goodList.add(
+                CodeBuilder.createBuilder()
+                        .withIdentifier("1111")
+                        .withOwner("adasdasdas")
+                        .withPasscode("823ijkdw")
+                        .withPublicStatus(true)
+                        .build()
+        );
 
-        goodList.add(code);
+        goodList.add(
+                CodeBuilder.createBuilder()
+                        .withIdentifier("ab12")
+                        .build()
+        );
 
-        code = new Code();
-        code.setIdentifier("ab12");
+        goodList.add(
+                CodeBuilder.createBuilder()
+                        .withIdentifier("123B")
+                        .withOwner("cezarmathe")
+                        .withPublicStatus(true)
+                        .build()
+        );
 
-        goodList.add(code);
-
-        code = new Code();
-        code.setIdentifier("123B");
-        code.setOwner("cezarmathe");
-        code.setPublicStatus(true);
-
-        goodList.add(code);
-
-        code = new Code();
-        code.setIdentifier("1111");
-        code.setOwner("numelemeu");
-        code.setPasscode("qudadjas22");
-        code.setPublicStatus(true);
-
-        goodList.add(code);
+        goodList.add(
+                CodeBuilder.createBuilder()
+                        .withIdentifier("1111")
+                        .withOwner("numelemeu")
+                        .withPasscode("qudadjas22")
+                        .withPublicStatus(true)
+                        .build()
+        );
 
         for (int i = 0; i < parsedList.size(); i++) {
             CodeAssert.assertThat(parsedList.get(i)).isEqualTo(goodList.get(i));
