@@ -1,4 +1,5 @@
 import assertions.CodeDbAssert;
+import com.hcodez.codeengine.builder.CodeDbBuilder;
 import com.hcodez.codeengine.model.CodeDb;
 import org.joda.time.Instant;
 import org.json.JSONException;
@@ -15,34 +16,36 @@ public class CodeDbJsonTest {
 
         CodeDb readCode = CodeDb.fromJson(TestCommon.getResourceAsString("json/code_db.json"));
 
-        CodeDb goodCode = new CodeDb();
-        goodCode.setIdentifier("aB12");
-        goodCode.setOwner("cezarmathe");
-        goodCode.setPasscode("d723y7x28");
-        goodCode.setName("A test code");
-        goodCode.setPublicStatus(true);
-        goodCode.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
-        goodCode.setCreateTime(new Instant(1560354133));
-        goodCode.setUpdateTime(new Instant(1560357733));
-        goodCode.setId(25);
-        goodCode.setOwnerId(16);
+        CodeDb goodCode = (CodeDb) CodeDbBuilder.createBuilder()
+                .withId(25)
+                .withOwnerId(16)
+                .withIdentifier("aB12")
+                .withOwner("cezarmathe")
+                .withPasscode("d723y7x28")
+                .withName("A test code")
+                .withPublicStatus(true)
+                .withUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"))
+                .withCreateTime(new Instant(1560354133))
+                .withUpdateTime(new Instant(1560357733))
+                .build();
 
         CodeDbAssert.assertThat(readCode).isEqualTo(goodCode);
     }
 
     @Test
     public void codeToJson() throws IOException, JSONException {
-        CodeDb codeDb = new CodeDb();
-        codeDb.setIdentifier("aB12");
-        codeDb.setOwner("cezarmathe");
-        codeDb.setPasscode("d723y7x28");
-        codeDb.setName("A test code");
-        codeDb.setPublicStatus(true);
-        codeDb.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
-        codeDb.setCreateTime(new Instant(1560354133));
-        codeDb.setUpdateTime(new Instant(1560357733));
-        codeDb.setId(25);
-        codeDb.setOwnerId(16);
+        CodeDb codeDb = (CodeDb) CodeDbBuilder.createBuilder()
+                .withId(25)
+                .withOwnerId(16)
+                .withIdentifier("aB12")
+                .withOwner("cezarmathe")
+                .withPasscode("d723y7x28")
+                .withName("A test code")
+                .withPublicStatus(true)
+                .withUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"))
+                .withCreateTime(new Instant(1560354133))
+                .withUpdateTime(new Instant(1560357733))
+                .build();
 
         JSONAssert.assertEquals(codeDb.toJson(), TestCommon.getResourceAsString("json/code_db.json"), true);
     }
