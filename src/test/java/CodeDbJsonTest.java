@@ -1,3 +1,4 @@
+import assertions.CodeDbAssert;
 import com.hcodez.codeengine.model.CodeDb;
 import org.joda.time.Instant;
 import org.junit.Test;
@@ -12,12 +13,6 @@ public class CodeDbJsonTest {
     public void jsonToCode() throws IOException {
 
         CodeDb readCode = CodeDb.fromJson(TestCommon.getResourceAsString("json/code_db.json"));
-        System.out.println("Code: " + readCode);
-        System.out.println("Created at: " + readCode.getCreateTime());
-        System.out.println("Edited at: " + readCode.getUpdateTime());
-        System.out.println("API URL: " + readCode.getUrl().toString());
-        System.out.println("Owner ID: " + readCode.getOwnerId());
-        System.out.println("Code ID: " + readCode.getId());
 
         CodeDb goodCode = new CodeDb();
         goodCode.setIdentifier("aB12");
@@ -31,7 +26,7 @@ public class CodeDbJsonTest {
         goodCode.setId(25);
         goodCode.setOwnerId(16);
 
-        assert checkIdenticalCode(readCode, goodCode);
+        CodeDbAssert.assertThat(readCode).isEqualTo(goodCode);
     }
 
     @Test
@@ -47,17 +42,5 @@ public class CodeDbJsonTest {
         codeDb.setUpdateTime(new Instant(1560357733));
 
         System.out.println(codeDb.toJson());
-    }
-
-    private static boolean checkIdenticalCode(CodeDb a, CodeDb b) {
-        return a.getCreateTime().toString().equals(b.getCreateTime().toString()) &&
-                a.getUrl().toString().equals(b.getUrl().toString()) &&
-                a.getUpdateTime().toString().equals(b.getUpdateTime().toString()) &&
-                a.getIdentifier().equals(b.getIdentifier()) &&
-                a.getName().equals(b.getName()) &&
-                a.getOwner().equals(b.getOwner()) &&
-                a.getPasscode().equals(b.getPasscode()) &&
-                a.getId().equals(b.getId()) &&
-                a.getOwnerId().equals(b.getOwnerId());
     }
 }
