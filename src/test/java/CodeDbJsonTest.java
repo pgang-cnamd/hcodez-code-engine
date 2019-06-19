@@ -34,7 +34,7 @@ public class CodeDbJsonTest {
 
     @Test
     public void codeToJson() throws IOException, JSONException {
-        CodeDb codeDb = (CodeDb) CodeDbBuilder.createBuilder()
+        CodeDb codeDb = CodeDbBuilder.createBuilder()
                 .withId(25)
                 .withOwnerId(16)
                 .withIdentifier("aB12")
