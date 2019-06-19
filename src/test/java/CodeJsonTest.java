@@ -29,7 +29,7 @@ public class CodeJsonTest {
     }
 
     @Test
-    public void codeToJson() throws IOException, JSONException { // FIXME: 2019-06-13 proper test that checks values
+    public void codeToJson() throws IOException, JSONException {
         Code code = new Code();
         code.setIdentifier("aB12");
         code.setOwner("cezarmathe");

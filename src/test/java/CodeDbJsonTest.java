@@ -32,7 +32,7 @@ public class CodeDbJsonTest {
     }
 
     @Test
-    public void codeToJson() throws IOException, JSONException { // FIXME: 2019-06-13 proper test
+    public void codeToJson() throws IOException, JSONException {
         CodeDb codeDb = new CodeDb();
         codeDb.setIdentifier("aB12");
         codeDb.setOwner("cezarmathe");
