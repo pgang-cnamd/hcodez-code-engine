@@ -1,5 +1,6 @@
 package com.hcodez.codeengine.parser;
 
+import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.model.CodeType;
 
@@ -71,25 +72,25 @@ public class CodeParser {
             while (matcher.find()) {
 
                 /*extract the code*/
-                final Code code = new Code();
+                final CodeBuilder codeBuilder = CodeBuilder.createBuilder();
 
                 /*extract code fields*/
-                code.setIdentifier(matcher.group("identifier"));
+                codeBuilder.withIdentifier(matcher.group("identifier"));
 
                 if (matcher.groupCount() > 1) {
-                    code.setOwner(matcher.group("owner"));
-                    code.setPublicStatus(true);
+                    codeBuilder.withOwner(matcher.group("owner"))
+                            .withPublicStatus(true);
 
                     if (matcher.groupCount() == 3) {
-                        code.setPasscode(matcher.group("passcode"));
+                        codeBuilder.withPasscode(matcher.group("passcode"));
                     }
 
                 } else {
-                    code.setPublicStatus(false);
+                    codeBuilder.withPublicStatus(false);
                 }
 
                 /*add the code in the workingRawOutput, along with it's start position*/
-                workingRawOutput.addParserProcessingMaterial(new ParserProcessingMaterial(code, matcher.start()));
+                workingRawOutput.addParserProcessingMaterial(new ParserProcessingMaterial(codeBuilder.build(), matcher.start()));
 
                 /*increase the universalCodeCount*/
                 universalCodeCount++;
