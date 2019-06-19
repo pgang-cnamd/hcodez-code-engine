@@ -1,20 +1,22 @@
 package com.hcodez.codeengine.builder;
 
 import com.hcodez.codeengine.model.CodeDb;
+import org.joda.time.Instant;
+
+import java.net.URL;
 
 /**
  * Class that aids in the process of building a code
  */
-public class CodeDbBuilder extends CodeBuilder {
+public class CodeDbBuilder{
 
     /**
      * The code that's being built
      */
-    private CodeDb codeDb;
+    private final CodeDb codeDb;
 
 
     public CodeDbBuilder() {
-        super();
         codeDb = new CodeDb();
     }
 
@@ -32,16 +34,49 @@ public class CodeDbBuilder extends CodeBuilder {
      * @return the built code
      */
     public CodeDb build() {
-        int id = this.codeDb.getId();
-        int ownerId = this.codeDb.getOwnerId();
-
-        codeDb = (CodeDb) super.build();
-        codeDb.setId(id);
-        codeDb.setOwnerId(ownerId);
-
         return codeDb;
     }
 
+
+    public CodeDbBuilder withIdentifier(String identifier) {
+        this.codeDb.setIdentifier(identifier);
+        return this;
+    }
+
+    public CodeDbBuilder withOwner(String owner) {
+        this.codeDb.setOwner(owner);
+        return this;
+    }
+
+    public CodeDbBuilder withPasscode(String passcode) {
+        this.codeDb.setPasscode(passcode);
+        return this;
+    }
+
+    public CodeDbBuilder withName(String name) {
+        this.codeDb.setName(name);
+        return this;
+    }
+
+    public CodeDbBuilder withUrl(URL url) {
+        this.codeDb.setUrl(url);
+        return this;
+    }
+
+    public CodeDbBuilder withPublicStatus(boolean publicStatus) {
+        this.codeDb.setPublicStatus(publicStatus);
+        return this;
+    }
+
+    public CodeDbBuilder withCreateTime(Instant createTime) {
+        this.codeDb.setCreateTime(createTime);
+        return this;
+    }
+
+    public CodeDbBuilder withUpdateTime(Instant updateTime) {
+        this.codeDb.setUpdateTime(updateTime);
+        return this;
+    }
 
     public CodeDbBuilder withId(int id) {
         this.codeDb.setId(id);
