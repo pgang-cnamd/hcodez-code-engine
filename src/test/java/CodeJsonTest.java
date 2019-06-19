@@ -1,6 +1,9 @@
+import assertions.CodeAssert;
 import com.hcodez.codeengine.model.Code;
 import org.joda.time.Instant;
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,12 +14,6 @@ public class CodeJsonTest {
     public void jsonToCode() throws IOException {
 
         Code readCode = Code.fromJson(TestCommon.getResourceAsString("json/code.json"));
-        System.out.println("Code: " + readCode);
-        System.out.println("Created at: " + readCode.getCreateTime());
-        System.out.println("Edited at: " + readCode.getUpdateTime());
-        System.out.println("API URL: " + readCode.getUrl().toString());
-        System.out.println("Code name: " + readCode.getName());
-        System.out.println("Public status: " + readCode.getPublicStatus());
 
         Code goodCode = new Code();
         goodCode.setIdentifier("aB12");
@@ -28,11 +25,11 @@ public class CodeJsonTest {
         goodCode.setCreateTime(new Instant(1560354133));
         goodCode.setUpdateTime(new Instant(1560357733));
 
-        assert checkIdenticalCode(readCode, goodCode);
+        CodeAssert.assertThat(goodCode).isEqualTo(readCode);
     }
 
     @Test
-    public void codeToJson() throws IOException { // FIXME: 2019-06-13 proper test that checks values
+    public void codeToJson() throws IOException, JSONException {
         Code code = new Code();
         code.setIdentifier("aB12");
         code.setOwner("cezarmathe");
@@ -43,26 +40,6 @@ public class CodeJsonTest {
         code.setCreateTime(new Instant(1560354133));
         code.setUpdateTime(new Instant(1560357733));
 
-        System.out.println(code.toJson());
-    }
-
-    private static boolean checkIdenticalCode(Code a, Code b) {
-        return a.getCreateTime().toString().equals(b.getCreateTime().toString()) &&
-                a.getUrl().toString().equals(b.getUrl().toString()) &&
-                a.getUpdateTime().toString().equals(b.getUpdateTime().toString()) &&
-                a.getIdentifier().equals(b.getIdentifier()) &&
-                a.getName().equals(b.getName()) &&
-                a.getOwner().equals(b.getOwner()) &&
-                a.getPasscode().equals(b.getPasscode());
-    }
-
-    private static boolean checkIdenticalJson(String a, String b) { // FIXME: 2019-06-13 this doesn't work
-        a = a.replaceAll("\\s+", "");
-        a = a.replaceAll("[\n\r]", "");
-
-        b = b.replaceAll("\\s+", "");
-        b = b.replaceAll("[\n\r]", "");
-
-        return a.equals(b);
+        JSONAssert.assertEquals(code.toJson(), TestCommon.getResourceAsString("json/code.json"), true);
     }
 }

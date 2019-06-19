@@ -1,6 +1,9 @@
+import assertions.CodeDbAssert;
 import com.hcodez.codeengine.model.CodeDb;
 import org.joda.time.Instant;
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -12,12 +15,6 @@ public class CodeDbJsonTest {
     public void jsonToCode() throws IOException {
 
         CodeDb readCode = CodeDb.fromJson(TestCommon.getResourceAsString("json/code_db.json"));
-        System.out.println("Code: " + readCode);
-        System.out.println("Created at: " + readCode.getCreateTime());
-        System.out.println("Edited at: " + readCode.getUpdateTime());
-        System.out.println("API URL: " + readCode.getUrl().toString());
-        System.out.println("Owner ID: " + readCode.getOwnerId());
-        System.out.println("Code ID: " + readCode.getId());
 
         CodeDb goodCode = new CodeDb();
         goodCode.setIdentifier("aB12");
@@ -31,11 +28,11 @@ public class CodeDbJsonTest {
         goodCode.setId(25);
         goodCode.setOwnerId(16);
 
-        assert checkIdenticalCode(readCode, goodCode);
+        CodeDbAssert.assertThat(readCode).isEqualTo(goodCode);
     }
 
     @Test
-    public void codeToJson() throws MalformedURLException { // FIXME: 2019-06-13 proper test
+    public void codeToJson() throws IOException, JSONException {
         CodeDb codeDb = new CodeDb();
         codeDb.setIdentifier("aB12");
         codeDb.setOwner("cezarmathe");
@@ -45,19 +42,9 @@ public class CodeDbJsonTest {
         codeDb.setUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"));
         codeDb.setCreateTime(new Instant(1560354133));
         codeDb.setUpdateTime(new Instant(1560357733));
+        codeDb.setId(25);
+        codeDb.setOwnerId(16);
 
-        System.out.println(codeDb.toJson());
-    }
-
-    private static boolean checkIdenticalCode(CodeDb a, CodeDb b) {
-        return a.getCreateTime().toString().equals(b.getCreateTime().toString()) &&
-                a.getUrl().toString().equals(b.getUrl().toString()) &&
-                a.getUpdateTime().toString().equals(b.getUpdateTime().toString()) &&
-                a.getIdentifier().equals(b.getIdentifier()) &&
-                a.getName().equals(b.getName()) &&
-                a.getOwner().equals(b.getOwner()) &&
-                a.getPasscode().equals(b.getPasscode()) &&
-                a.getId().equals(b.getId()) &&
-                a.getOwnerId().equals(b.getOwnerId());
+        JSONAssert.assertEquals(codeDb.toJson(), TestCommon.getResourceAsString("json/code_db.json"), true);
     }
 }
