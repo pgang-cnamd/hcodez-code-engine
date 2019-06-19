@@ -16,7 +16,7 @@ public class CodeDbJsonTest {
 
         CodeDb readCode = CodeDb.fromJson(TestCommon.getResourceAsString("json/code_db.json"));
 
-        CodeDb goodCode = (CodeDb) CodeDbBuilder.createBuilder()
+        CodeDb goodCode = CodeDbBuilder.createBuilder()
                 .withId(25)
                 .withOwnerId(16)
                 .withIdentifier("aB12")
