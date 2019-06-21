@@ -1,5 +1,6 @@
 package com.hcodez.codeengine.model;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
@@ -42,5 +43,15 @@ public enum CodeType {
      */
     public Pattern getPattern() {
         return Pattern.compile(this.getRegex());
+    }
+
+    public ArrayList<CodeType> all() {
+        final ArrayList<CodeType> allCodeTypes = new ArrayList<>();
+
+        allCodeTypes.add(CodeType.PRIVATE);
+        allCodeTypes.add(CodeType.PUBLIC_NO_PASSCODE);
+        allCodeTypes.add(CodeType.PUBLIC_WITH_PASSCODE);
+
+        return allCodeTypes;
     }
 }
