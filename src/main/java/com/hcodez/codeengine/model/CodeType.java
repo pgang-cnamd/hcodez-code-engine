@@ -7,9 +7,17 @@ import java.util.regex.Pattern;
  */
 public enum CodeType {
 
+    /**
+     * Proper CodeTypes
+     */
     PRIVATE,
     PUBLIC_NO_PASSCODE,
     PUBLIC_WITH_PASSCODE;
+
+    /**
+     * Faulty CodeTypes for detecting faulty Codes
+     */
+    // TODO: 2019-06-21 add those CodeTypes, along with their RegEx representation
 
     /**
      * Get the regular expression for the given code type
