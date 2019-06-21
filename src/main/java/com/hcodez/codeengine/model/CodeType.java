@@ -58,14 +58,14 @@ public enum CodeType {
                 return "";
             case ERR_PUBLIC_NO_PASSCODE_MISS_END_BRACKET:
                 return "";
-                
+
             case ERR_PUBLIC_WITH_PASSCODE_MISS_START_BRACKET:
-                return "";
-            case ERR_PUBLIC_WITH_PASSCODE_MISS_END_BRACKET:
                 return "";
             case ERR_PUBLIC_WITH_PASSCODE_MISS_AT_SIGN:
                 return "";
             case ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAM_SIGN:
+                return "";
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_END_BRACKET:
                 return "";
             default:
                 throw new RuntimeException("unknown code type");

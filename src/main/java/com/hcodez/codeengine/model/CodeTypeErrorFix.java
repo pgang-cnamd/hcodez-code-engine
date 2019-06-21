@@ -9,5 +9,5 @@ public interface CodeTypeErrorFix {
      * @param input the input String(only the "code")
      * @return a valid code format
      */
-    String apply(String input);
+    String apply(String input, int errorCharacterPointer);
 }
