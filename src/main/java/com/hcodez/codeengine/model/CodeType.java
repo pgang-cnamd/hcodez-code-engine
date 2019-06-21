@@ -45,6 +45,10 @@ public enum CodeType {
         return Pattern.compile(this.getRegex());
     }
 
+    /**
+     * Get an ArrayList that contains all CodeTypes
+     * @return an ArrayList with every CodeType availableg
+     */
     public ArrayList<CodeType> all() {
         final ArrayList<CodeType> allCodeTypes = new ArrayList<>();
 
