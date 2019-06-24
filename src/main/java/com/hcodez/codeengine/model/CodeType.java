@@ -46,27 +46,27 @@ public enum CodeType {
             case PUBLIC_WITH_PASSCODE:
                 return "<(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})!(?<passcode>[0-9a-zA-Z]{4,16})>";
 
-            /*faulty CodeType regex*/ // TODO: 2019-06-21 add regular expressions
+            /*faulty CodeType regex*/
             case ERR_PRIVATE_MISS_START_BRACKET:
-                return "";
+                return "(?<identifier>[0-9a-zA-Z]{4})>";
             case ERR_PRIVATE_MISS_END_BRACKET:
-                return "";
+                return "<(?<identifier>[0-9a-zA-Z]{4})";
 
             case ERR_PUBLIC_NO_PASSCODE_MISS_START_BRACKET:
-                return "";
+                return "(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})>";
             case ERR_PUBLIC_NO_PASSCODE_MISS_AT_SIGN:
-                return "";
+                return "<(?<identifier>[0-9a-zA-Z]{4})(?<owner>[0-9a-zA-Z]{4,16})>";
             case ERR_PUBLIC_NO_PASSCODE_MISS_END_BRACKET:
-                return "";
+                return "<(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})";
 
             case ERR_PUBLIC_WITH_PASSCODE_MISS_START_BRACKET:
-                return "";
+                return "(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})!(?<passcode>[0-9a-zA-Z]{4,16})>";
             case ERR_PUBLIC_WITH_PASSCODE_MISS_AT_SIGN:
-                return "";
+                return "<(?<identifier>[0-9a-zA-Z]{4})(?<owner>[0-9a-zA-Z]{4,16})!(?<passcode>[0-9a-zA-Z]{4,16})>";
             case ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAMATION_SIGN:
-                return "";
+                return "<(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})(?<passcode>[0-9a-zA-Z]{4,16})>";
             case ERR_PUBLIC_WITH_PASSCODE_MISS_END_BRACKET:
-                return "";
+                return "<(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})!(?<passcode>[0-9a-zA-Z]{4,16})";
             default:
                 throw new RuntimeException("unknown code type");
         }
