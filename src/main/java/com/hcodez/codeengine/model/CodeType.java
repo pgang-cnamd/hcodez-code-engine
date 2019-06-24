@@ -29,7 +29,7 @@ public enum CodeType {
     /*public codes with passcode*/
     ERR_PUBLIC_WITH_PASSCODE_MISS_START_BRACKET,
     ERR_PUBLIC_WITH_PASSCODE_MISS_AT_SIGN,
-    ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAM_SIGN,
+    ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAMATION_SIGN,
     ERR_PUBLIC_WITH_PASSCODE_MISS_END_BRACKET;
 
     /**
@@ -63,7 +63,7 @@ public enum CodeType {
                 return "";
             case ERR_PUBLIC_WITH_PASSCODE_MISS_AT_SIGN:
                 return "";
-            case ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAM_SIGN:
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAMATION_SIGN:
                 return "";
             case ERR_PUBLIC_WITH_PASSCODE_MISS_END_BRACKET:
                 return "";
