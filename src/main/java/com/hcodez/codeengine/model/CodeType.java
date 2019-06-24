@@ -89,5 +89,40 @@ public enum CodeType {
                 this != CodeType.PUBLIC_NO_PASSCODE &&
                 this != CodeType.PUBLIC_WITH_PASSCODE;
     }
+    
+    @Override
+    public String toString() {
+        switch (this) {
+            case PRIVATE:
+                return "private";
+            case PUBLIC_NO_PASSCODE:
+                return "public_no_passcode";
+            case PUBLIC_WITH_PASSCODE:
+                return "public_with_passcode";
 
+            case ERR_PRIVATE_MISS_START_BRACKET:
+                return "err_private_miss_start_bracket";
+            case ERR_PRIVATE_MISS_END_BRACKET:
+                return "err_private_miss_end_bracket";
+
+            case ERR_PUBLIC_NO_PASSCODE_MISS_START_BRACKET:
+                return "err_public_no_passcode_miss_start_bracket";
+            case ERR_PUBLIC_NO_PASSCODE_MISS_AT_SIGN:
+                return "err_public_no_passcode_miss_at_sign";
+            case ERR_PUBLIC_NO_PASSCODE_MISS_END_BRACKET:
+                return "err_public_no_passcode_miss_end_bracket";
+
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_START_BRACKET:
+                return "err_public_with_passcode_miss_start_bracket";
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_AT_SIGN:
+                return "err_public_with_passcode_miss_at_sign";
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAMATION_SIGN:
+                return "err_public_with_passcode_miss_exclamation_sign";
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_END_BRACKET:
+                return "err_public_with_passcode_miss_end_bracket";
+
+            default:
+                return "unknown";
+        }
+    }
 }
