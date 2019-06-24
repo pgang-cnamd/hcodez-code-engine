@@ -1,6 +1,6 @@
 package com.hcodez.codeengine.model;
 
-import com.hcodez.codeengine.model.faultycodes.*;
+import com.hcodez.codeengine.model.fix.*;
 
 /**
  * CodeTypeError is a container designed to provide useful information regarding faulty CodeTypes

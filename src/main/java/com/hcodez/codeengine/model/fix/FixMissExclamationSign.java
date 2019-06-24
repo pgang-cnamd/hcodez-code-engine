@@ -1,4 +1,4 @@
-package com.hcodez.codeengine.model.faultycodes;
+package com.hcodez.codeengine.model.fix;
 
 import com.hcodez.codeengine.model.CodeTypeErrorFix;
 
