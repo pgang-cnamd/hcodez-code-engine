@@ -90,14 +90,4 @@ public enum CodeType {
                 this != CodeType.PUBLIC_WITH_PASSCODE;
     }
 
-    /**
-     * Get the CodeTypeError for this specific error, or null if it's not an error
-     * @return the CodeTypeError for this specific error, or null if it's not an error
-     */
-    public CodeTypeError getCodeTypeError() {
-        if (!this.isError()) {
-            return null;
-        }
-        return null; // temporary
-    }
 }

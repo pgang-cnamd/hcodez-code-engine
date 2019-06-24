@@ -1,7 +1,6 @@
 package com.hcodez.codeengine.model;
 
-import com.hcodez.codeengine.model.faultycodes.FixNotAvailable;
-import com.hcodez.codeengine.model.faultycodes.FixNotNeeded;
+import com.hcodez.codeengine.model.faultycodes.*;
 
 /**
  * CodeTypeError is a container designed to provide useful information regarding faulty CodeTypes
@@ -117,5 +116,52 @@ public class CodeTypeError {
 
     public void setFix(CodeTypeErrorFix fix) {
         this.fix = fix;
+    }
+
+
+    /**
+     * Get a CodeTypeError for a specific CodeType
+     * @param codeType the code type
+     * @return a CodeTypeError for a specific CodeType
+     */
+    public static CodeTypeError getFromCodeType(CodeType codeType) {
+        if (!codeType.isError()) {
+            return CodeTypeError.noError();
+        }
+
+        switch (codeType) {
+
+            case ERR_PRIVATE_MISS_START_BRACKET:
+            case ERR_PUBLIC_NO_PASSCODE_MISS_START_BRACKET:
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_START_BRACKET:
+                return new CodeTypeError(
+                        "missing the start bracket(\"<\")",
+                        0,
+                        new FixMissStartBracket()
+                );
+
+            case ERR_PRIVATE_MISS_END_BRACKET:
+            case ERR_PUBLIC_NO_PASSCODE_MISS_END_BRACKET:
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_END_BRACKET:
+                return new CodeTypeError(
+                        "missing the end bracket(\">\")",
+                        -1,
+                        new FixMissEndBracket()
+                );
+
+            case ERR_PUBLIC_NO_PASSCODE_MISS_AT_SIGN:
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_AT_SIGN:
+                return new CodeTypeError(
+                        "missing the username decorator(\"@\")",
+                        5,
+                        new FixMissAtSign()
+                );
+
+            case ERR_PUBLIC_WITH_PASSCODE_MISS_EXCLAMATION_SIGN:R:
+                return CodeTypeError.knownErrorNoFix("username exceeds length and passcode decorator not found(\"!\")");
+
+            default:
+                return CodeTypeError.unknownError();
+        }
     }
 }
