@@ -72,7 +72,7 @@ public class CodeParser {
             while (matcher.find()) {
 
                 /*extract the code*/
-                final CodeBuilder codeBuilder = CodeBuilder.createBuilder();
+                final CodeBuilder codeBuilder = CodeBuilder.createBuilder().withCodeType(codeType);
 
                 /*extract code fields*/
                 codeBuilder.withIdentifier(matcher.group("identifier"));
