@@ -164,4 +164,6 @@ public class CodeTypeError {
                 return CodeTypeError.unknownError();
         }
     }
+
+    // TODO: 2019-06-25 add error metadata(position in string etc)
 }
