@@ -61,6 +61,12 @@ public class Code {
     @SerializedName("update_time")
     private Instant updateTime;
 
+    /**
+     * The CodeType of this Code
+     */
+    @SerializedName("code_type")
+    private CodeType codeType;
+
 
     public Code() {
 
