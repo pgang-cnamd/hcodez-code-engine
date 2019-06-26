@@ -61,6 +61,12 @@ public class Code {
     @SerializedName("update_time")
     private Instant updateTime;
 
+    /**
+     * The CodeType of this Code
+     */
+    @SerializedName("code_type")
+    private CodeType codeType;
+
 
     public Code() {
 
@@ -131,6 +137,13 @@ public class Code {
         this.updateTime = updateTime;
     }
 
+    public CodeType getCodeType() {
+        return codeType;
+    }
+
+    public void setCodeType(CodeType codeType) {
+        this.codeType = codeType;
+    }
 
     @Override
     public String toString() {
@@ -170,19 +183,5 @@ public class Code {
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
         return gsonBuilder.create().fromJson(input, Code.class);
-    }
-
-    public CodeType getCodeType() {
-        if (!this.publicStatus) {
-            return CodeType.PRIVATE;
-        }
-        try {
-            if (this.passcode.equals("")) {
-                return CodeType.PUBLIC_NO_PASSCODE;
-            }
-        } catch (Exception ignored) {
-            return CodeType.PUBLIC_NO_PASSCODE;
-        }
-        return CodeType.PUBLIC_WITH_PASSCODE;
     }
 }
