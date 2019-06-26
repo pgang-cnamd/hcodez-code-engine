@@ -8,8 +8,7 @@ import java.nio.charset.StandardCharsets;
 class TestCommon {
 
     private static InputStream getResourceAsInputStream(String fileName) {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = classloader.getResourceAsStream(fileName);
+        InputStream inputStream = TestCommon.class.getResourceAsStream(fileName);
 
         assert inputStream != null;
 
