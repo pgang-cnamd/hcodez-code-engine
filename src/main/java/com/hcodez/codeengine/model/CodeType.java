@@ -14,8 +14,8 @@ public enum CodeType {
     PRIVATE,
     PUBLIC_NO_PASSCODE,
     PUBLIC_WITH_PASSCODE;
-    
 
+    
     /**
      * Get the regular expression for the given code type
      * @return the regular expression
