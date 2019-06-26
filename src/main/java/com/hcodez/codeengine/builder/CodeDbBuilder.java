@@ -1,6 +1,7 @@
 package com.hcodez.codeengine.builder;
 
 import com.hcodez.codeengine.model.CodeDb;
+import com.hcodez.codeengine.model.CodeType;
 import org.joda.time.Instant;
 
 import java.net.URL;
@@ -85,6 +86,11 @@ public class CodeDbBuilder{
 
     public CodeDbBuilder withOwnerId(int ownerId) {
         this.codeDb.setOwnerId(ownerId);
+        return this;
+    }
+
+    public CodeDbBuilder withCodeType(CodeType codeType) {
+        this.codeDb.setCodeType(codeType);
         return this;
     }
 }

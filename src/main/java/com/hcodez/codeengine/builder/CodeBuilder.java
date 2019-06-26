@@ -1,6 +1,7 @@
 package com.hcodez.codeengine.builder;
 
 import com.hcodez.codeengine.model.Code;
+import com.hcodez.codeengine.model.CodeType;
 import org.joda.time.Instant;
 
 import java.net.URL;
@@ -75,6 +76,11 @@ public class CodeBuilder {
 
     public CodeBuilder withUpdateTime(Instant updateTime) {
         this.code.setUpdateTime(updateTime);
+        return this;
+    }
+
+    public CodeBuilder withCodeType(CodeType codeType) {
+        this.code.setCodeType(codeType);
         return this;
     }
 }
