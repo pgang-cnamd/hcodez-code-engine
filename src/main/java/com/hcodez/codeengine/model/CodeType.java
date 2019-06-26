@@ -56,4 +56,19 @@ public enum CodeType {
 
         return allCodeTypes;
     }
+
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case PRIVATE:
+                return "private";
+            case PUBLIC_NO_PASSCODE:
+                return "public_no_passcode";
+            case PUBLIC_WITH_PASSCODE:
+                return "public_with_passcode";
+            default:
+                return null;
+        }
+    }
 }
