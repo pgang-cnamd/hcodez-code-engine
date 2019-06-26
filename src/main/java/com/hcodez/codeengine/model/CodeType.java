@@ -15,9 +15,9 @@ public enum CodeType {
     PUBLIC_NO_PASSCODE,
     PUBLIC_WITH_PASSCODE;
 
-    
     /**
      * Get the regular expression for the given code type
+     *
      * @return the regular expression
      */
     public String getRegex() {
@@ -35,6 +35,7 @@ public enum CodeType {
 
     /**
      * Get a compiled pattern for the code type
+     *
      * @return the pattern
      */
     public Pattern getPattern() {
@@ -43,6 +44,7 @@ public enum CodeType {
 
     /**
      * Get an ArrayList that contains all CodeTypes
+     *
      * @return an ArrayList with every CodeType availableg
      */
     public ArrayList<CodeType> all() {
