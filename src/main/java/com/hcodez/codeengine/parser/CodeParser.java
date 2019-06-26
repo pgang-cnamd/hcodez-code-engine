@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 /**
- * Factory for creating code objects.
+ * Parser for extracting codes from different types of input
  */
 public class CodeParser {
 
