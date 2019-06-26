@@ -1,6 +1,7 @@
 import assertions.CodeAssert;
 import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
+import com.hcodez.codeengine.model.CodeType;
 import org.joda.time.Instant;
 import org.json.JSONException;
 import org.junit.Test;
@@ -25,6 +26,7 @@ public class CodeJsonTest {
                 .withUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"))
                 .withCreateTime(new Instant(1560354133))
                 .withUpdateTime(new Instant(1560357733))
+                .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .build();
 
         CodeAssert.assertThat(goodCode).isEqualTo(readCode);
@@ -41,6 +43,7 @@ public class CodeJsonTest {
                 .withUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"))
                 .withCreateTime(new Instant(1560354133))
                 .withUpdateTime(new Instant(1560357733))
+                .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .build();
 
         JSONAssert.assertEquals(code.toJson(), TestCommon.getResourceAsString("json/code.json"), true);
