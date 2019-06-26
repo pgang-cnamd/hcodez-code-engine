@@ -8,5 +8,6 @@
   "public_status": true,
   "url": "https://api.example.com/v0/code/aB12@cezarmathe",
   "create_time": 1560354133,
-  "update_time": 1560357733
+  "update_time": 1560357733,
+  "code_type": "public_with_passcode"
 }
