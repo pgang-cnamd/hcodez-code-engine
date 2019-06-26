@@ -2,6 +2,8 @@ package com.hcodez.codeengine.model;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.hcodez.codeengine.json.CodeTypeDeserializer;
+import com.hcodez.codeengine.json.CodeTypeSerializer;
 import com.hcodez.codeengine.json.InstantDeserializer;
 import com.hcodez.codeengine.json.InstantSerializer;
 import org.joda.time.Instant;
@@ -175,6 +177,8 @@ public class Code {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
+        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeSerializer());
+        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeDeserializer());
         return gsonBuilder.create().toJson(this);
     }
 
@@ -182,6 +186,8 @@ public class Code {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
         gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
+        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeSerializer());
+        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeDeserializer());
         return gsonBuilder.create().fromJson(input, Code.class);
     }
 }
