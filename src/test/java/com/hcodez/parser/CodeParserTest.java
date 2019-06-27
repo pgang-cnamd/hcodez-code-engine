@@ -1,19 +1,20 @@
-package parser;
+package com.hcodez.parser;
 
-import util.CodeAssert;
+import com.hcodez.util.CodeAssert;
 import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.parser.CodeParser;
 import com.hcodez.codeengine.model.CodeType;
+import org.junit.After;
 import org.junit.Test;
-import util.TestCommon;
+import com.hcodez.util.TestCommon;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class CodeParserTest {
 
-    @Test
+    @After
     public void parseStringTest() throws IOException {
 
         CodeParser codeParser = new CodeParser();
@@ -23,7 +24,7 @@ public class CodeParserTest {
                 .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
                 .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .parseString(
-                        TestCommon.getResourceAsString("plain_text/code_factory_code_list.txt")
+                        TestCommon.getResourceAsString("/plain_text/code_factory_code_list.txt")
                 );
 
         ArrayList<Code> goodList = new ArrayList<>();

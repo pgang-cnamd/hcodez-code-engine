@@ -1,4 +1,4 @@
-package util;
+package com.hcodez.util;
 
 import com.google.common.io.CharStreams;
 

@@ -1,20 +1,20 @@
-package util;
+package com.hcodez.util;
 
-import com.hcodez.codeengine.model.CodeDb;
+import com.hcodez.codeengine.model.Code;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.Assertions;
 
-public class CodeDbAssert extends AbstractAssert<CodeDbAssert, CodeDb> {
+public class CodeAssert extends AbstractAssert<CodeAssert, Code> {
 
-    public CodeDbAssert(CodeDb actual) {
-        super(actual, CodeDbAssert.class);
+    public CodeAssert(Code actual) {
+        super(actual, CodeAssert.class);
     }
 
-    public static CodeDbAssert assertThat(CodeDb actual) {
-        return new CodeDbAssert(actual);
+    public static CodeAssert assertThat(Code actual) {
+        return new CodeAssert(actual);
     }
 
-    public CodeDbAssert isEqualTo(CodeDb code) {
+    public CodeAssert isEqualTo(Code code) {
 
         isNotNull();
 
@@ -25,8 +25,7 @@ public class CodeDbAssert extends AbstractAssert<CodeDbAssert, CodeDb> {
         Assertions.assertThat(actual.getPasscode()).isEqualTo(code.getPasscode());
         Assertions.assertThat(actual.getUrl()).isEqualTo(code.getUrl());
         Assertions.assertThat(actual.getUpdateTime()).isEqualTo(code.getUpdateTime());
-        Assertions.assertThat(actual.getId()).isEqualTo(code.getId());
-        Assertions.assertThat(actual.getOwnerId()).isEqualTo(code.getOwnerId());
+        Assertions.assertThat(actual.getCodeType()).isEqualTo(code.getCodeType());
 
         return this;
     }
