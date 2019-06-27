@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class CodeParserTest {
 
     @Test
-    public void codeParserParseStringTest() throws IOException {
+    public void parseStringTest() throws IOException {
 
         CodeParser codeParser = new CodeParser();
 

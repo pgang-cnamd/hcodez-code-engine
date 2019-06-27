@@ -1,6 +1,6 @@
-import assertions.CodeAssert;
-import com.hcodez.codeengine.builder.CodeBuilder;
-import com.hcodez.codeengine.model.Code;
+import assertions.CodeDbAssert;
+import com.hcodez.codeengine.builder.CodeDbBuilder;
+import com.hcodez.codeengine.model.CodeDb;
 import com.hcodez.codeengine.model.CodeType;
 import org.joda.time.Instant;
 import org.json.JSONException;
@@ -10,14 +10,16 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import java.io.IOException;
 import java.net.URL;
 
-public class CodeJsonTest {
+public class CodeDbTest {
 
     @Test
-    public void jsonToCode() throws IOException {
+    public void fromJsonTest() throws IOException {
 
-        Code readCode = Code.fromJson(TestCommon.getResourceAsString("json/code.json"));
+        CodeDb readCode = CodeDb.fromJson(TestCommon.getResourceAsString("json/code_db.json"));
 
-        Code goodCode = CodeBuilder.createBuilder()
+        CodeDb goodCode = CodeDbBuilder.createBuilder()
+                .withId(25)
+                .withOwnerId(16)
                 .withIdentifier("aB12")
                 .withOwner("cezarmathe")
                 .withPasscode("d723y7x28")
@@ -29,12 +31,14 @@ public class CodeJsonTest {
                 .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .build();
 
-        CodeAssert.assertThat(goodCode).isEqualTo(readCode);
+        CodeDbAssert.assertThat(readCode).isEqualTo(goodCode);
     }
 
     @Test
-    public void codeToJson() throws IOException, JSONException {
-        Code code = CodeBuilder.createBuilder()
+    public void toJsonTest() throws IOException, JSONException {
+        CodeDb codeDb = CodeDbBuilder.createBuilder()
+                .withId(25)
+                .withOwnerId(16)
                 .withIdentifier("aB12")
                 .withOwner("cezarmathe")
                 .withPasscode("d723y7x28")
@@ -46,6 +50,6 @@ public class CodeJsonTest {
                 .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .build();
 
-        JSONAssert.assertEquals(code.toJson(), TestCommon.getResourceAsString("json/code.json"), true);
+        JSONAssert.assertEquals(codeDb.toJson(), TestCommon.getResourceAsString("json/code_db.json"), true);
     }
 }
