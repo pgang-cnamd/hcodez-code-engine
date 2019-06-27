@@ -1,9 +1,12 @@
-import assertions.CodeAssert;
+package parser;
+
+import util.CodeAssert;
 import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.parser.CodeParser;
 import com.hcodez.codeengine.model.CodeType;
 import org.junit.Test;
+import util.TestCommon;
 
 import java.io.IOException;
 import java.util.ArrayList;

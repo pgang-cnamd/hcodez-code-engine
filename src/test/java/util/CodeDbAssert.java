@@ -1,4 +1,4 @@
-package assertions;
+package util;
 
 import com.hcodez.codeengine.model.CodeDb;
 import org.assertj.core.api.AbstractAssert;
