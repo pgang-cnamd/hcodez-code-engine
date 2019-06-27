@@ -154,18 +154,39 @@ public class Code {
         builder.append("<");
         builder.append(identifier);
 
-        if (this.getPublicStatus()) {
-            builder.append("@");
-            builder.append(owner);
-        }
-
-        try {
-            if (!this.getPasscode().equals("")) {
-                builder.append("!");
-                builder.append(passcode);
+        /*if the code does not have a code type, infer it's String value from it's fields*/
+        if (this.codeType == null) {
+            if (this.getPublicStatus()) {
+                builder.append("@");
+                builder.append(owner);
             }
-        } catch (Exception ignored) {
 
+            try {
+                if (!this.getPasscode().equals("")) {
+                    builder.append("!");
+                    builder.append(passcode);
+                }
+            } catch (Exception ignored) {
+
+            }
+        } else {
+            /*if the code is not private, append the owner username*/
+            if (this.codeType != CodeType.PRIVATE) {
+                if (this.getPublicStatus()) {
+                    builder.append("@");
+                    builder.append(owner);
+                }
+            }
+            if (this.codeType == CodeType.PUBLIC_WITH_PASSCODE) {
+                try {
+                    if (!this.getPasscode().equals("")) {
+                        builder.append("!");
+                        builder.append(passcode);
+                    }
+                } catch (Exception ignored) {
+
+                }
+            }
         }
 
         builder.append(">");
