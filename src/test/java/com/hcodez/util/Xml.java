@@ -17,14 +17,14 @@ import java.util.ArrayList;
 
 public class Xml {
 
-    private Document loadXmlDocument(String inputFile) throws IOException, SAXException, ParserConfigurationException {
+    private static Document loadXmlDocument(String inputFile) throws IOException, SAXException, ParserConfigurationException {
         InputStream inputStream = TestCommon.getResourceAsInputStream(inputFile);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         return dBuilder.parse(inputStream);
     }
 
-    private Code getCodeFromXmlElement(Element element, CodeType codeType) {
+    private static Code getCodeFromXmlElement(Element element, CodeType codeType) {
         CodeBuilder codeBuilder = CodeBuilder.createBuilder()
                 .withIdentifier(element.getAttribute("identifier"))
                 .withCodeType(CodeType.fromString(element.getAttribute("codeType")));
@@ -50,7 +50,7 @@ public class Xml {
         }
     }
 
-    public ArrayList<Code> loadCodesFromXml(CodeType codeType) throws ParserConfigurationException, SAXException, IOException {
+    public static ArrayList<Code> loadCodesFromXml(CodeType codeType) throws ParserConfigurationException, SAXException, IOException {
         ArrayList<Code> list = new ArrayList<>();
 
         Document document = loadXmlDocument("/xml/codes_private.xml");
