@@ -42,6 +42,10 @@ public class CodeParser {
      */
     public ArrayList<Code> parseString(String input) {
 
+        if (this.codeTypes.size() == 0) {
+            return null;
+        }
+
         /*clean up the input(remove all whitespaces and endlines*/
         input = input.replaceAll("\\s+", "");
         input = input.replaceAll("[\n\r]", "");
@@ -72,7 +76,7 @@ public class CodeParser {
             while (matcher.find()) {
 
                 /*create the code builder used to build the code*/
-                final CodeBuilder codeBuilder = CodeBuilder.createBuilder();
+                final CodeBuilder codeBuilder = CodeBuilder.createBuilder().withCodeType(codeType);
 
                 /*extract code fields*/
                 codeBuilder.withIdentifier(matcher.group("identifier"));
