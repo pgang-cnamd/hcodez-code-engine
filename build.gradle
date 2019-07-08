@@ -1,14 +1,14 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
+apply plugin: 'maven'
 
-group 'com.hcodez.engine'
+group 'com.github.pgang-cnamd'
 version '1.0.0'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 dependencies {
