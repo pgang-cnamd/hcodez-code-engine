@@ -21,7 +21,6 @@ public class CodeDbTest {
                 .withIdentifier("aB12")
                 .withOwner("testOwNeR")
                 .withPasscode("mYPass12code")
-                .withPublicStatus(true)
                 .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .build();
 
@@ -40,7 +39,6 @@ public class CodeDbTest {
                 .withOwner("cezarmathe")
                 .withPasscode("d723y7x28")
                 .withName("A test code")
-                .withPublicStatus(true)
                 .withUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"))
                 .withCreateTime(new Instant(1560354133))
                 .withUpdateTime(new Instant(1560357733))
@@ -59,7 +57,6 @@ public class CodeDbTest {
                 .withOwner("cezarmathe")
                 .withPasscode("d723y7x28")
                 .withName("A test code")
-                .withPublicStatus(true)
                 .withUrl(new URL("https://api.example.com/v0/code/aB12@cezarmathe"))
                 .withCreateTime(new Instant(1560354133))
                 .withUpdateTime(new Instant(1560357733))

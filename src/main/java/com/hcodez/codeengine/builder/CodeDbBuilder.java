@@ -64,11 +64,6 @@ public class CodeDbBuilder{
         return this;
     }
 
-    public CodeDbBuilder withPublicStatus(boolean publicStatus) {
-        this.codeDb.setPublicStatus(publicStatus);
-        return this;
-    }
-
     public CodeDbBuilder withCreateTime(Instant createTime) {
         this.codeDb.setCreateTime(createTime);
         return this;

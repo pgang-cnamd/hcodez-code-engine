@@ -6,12 +6,8 @@ import com.hcodez.codeengine.model.CodeType;
 import com.hcodez.codeengine.parser.CodeParser;
 import com.hcodez.util.CodeAssert;
 import com.hcodez.util.TestCommon;
-import com.hcodez.util.Xml;
 import org.junit.After;
-import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -37,13 +33,14 @@ public class CodeParserTest {
                         .withIdentifier("1111")
                         .withOwner("adasdasdas")
                         .withPasscode("823ijkdw")
-                        .withPublicStatus(true)
+                        .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                         .build()
         );
 
         goodList.add(
                 CodeBuilder.createBuilder()
                         .withIdentifier("ab12")
+                        .withCodeType(CodeType.PRIVATE)
                         .build()
         );
 
@@ -51,7 +48,7 @@ public class CodeParserTest {
                 CodeBuilder.createBuilder()
                         .withIdentifier("123B")
                         .withOwner("cezarmathe")
-                        .withPublicStatus(true)
+                        .withCodeType(CodeType.PUBLIC_NO_PASSCODE)
                         .build()
         );
 
@@ -60,26 +57,9 @@ public class CodeParserTest {
                         .withIdentifier("1111")
                         .withOwner("numelemeu")
                         .withPasscode("qudadjas22")
-                        .withPublicStatus(true)
+                        .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                         .build()
         );
-
-        for (int i = 0; i < parsedList.size(); i++) {
-            CodeAssert.assertThat(parsedList.get(i)).isEqualTo(goodList.get(i));
-        }
-    }
-
-    @Test
-    public void parseEasyPrivateCodes() throws IOException, ParserConfigurationException, SAXException {
-        CodeParser parser = new CodeParser();
-
-        ArrayList<Code> parsedList = parser
-                .addCodeType(CodeType.PRIVATE)
-                .parseString(TestCommon.getResourceAsString("/plain_text/codes_private.txt"));
-
-        ArrayList<Code> goodList = Xml.loadCodesFromXml(CodeType.PRIVATE);
-
-        assert parsedList.size() == goodList.size();
 
         for (int i = 0; i < parsedList.size(); i++) {
             CodeAssert.assertThat(parsedList.get(i)).isEqualTo(goodList.get(i));

@@ -42,6 +42,10 @@ public class CodeParser {
      */
     public ArrayList<Code> parseString(String input) {
 
+        if (this.codeTypes.size() == 0) {
+            return null;
+        }
+
         /*clean up the input(remove all whitespaces and endlines*/
         input = input.replaceAll("\\s+", "");
         input = input.replaceAll("[\n\r]", "");
@@ -72,21 +76,18 @@ public class CodeParser {
             while (matcher.find()) {
 
                 /*create the code builder used to build the code*/
-                final CodeBuilder codeBuilder = CodeBuilder.createBuilder();
+                final CodeBuilder codeBuilder = CodeBuilder.createBuilder().withCodeType(codeType);
 
                 /*extract code fields*/
                 codeBuilder.withIdentifier(matcher.group("identifier"));
 
                 if (matcher.groupCount() > 1) {
-                    codeBuilder.withOwner(matcher.group("owner"))
-                            .withPublicStatus(true);
+                    codeBuilder.withOwner(matcher.group("owner"));
 
                     if (matcher.groupCount() == 3) {
                         codeBuilder.withPasscode(matcher.group("passcode"));
                     }
 
-                } else {
-                    codeBuilder.withPublicStatus(false);
                 }
 
                 /*add the code in the workingRawOutput, along with it's start position*/
