@@ -22,7 +22,6 @@ public class CodeBuilderTest {
                 .withName("A test name")
                 .withOwner("testowner")
                 .withPasscode("aTesTP4ssC0de")
-                .withPublicStatus(true)
                 .withUpdateTime(new Instant(1561636265))
                 .withUrl(new URL("https://example.com"))
                 .build();
@@ -34,7 +33,6 @@ public class CodeBuilderTest {
         goodCode.setName("A test name");
         goodCode.setOwner("testowner");
         goodCode.setPasscode("aTesTP4ssC0de");
-        goodCode.setPublicStatus(true);
         goodCode.setUpdateTime(new Instant(1561636265));
         goodCode.setUrl(new URL("https://example.com"));
 

@@ -33,13 +33,14 @@ public class CodeParserTest {
                         .withIdentifier("1111")
                         .withOwner("adasdasdas")
                         .withPasscode("823ijkdw")
-                        .withPublicStatus(true)
+                        .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                         .build()
         );
 
         goodList.add(
                 CodeBuilder.createBuilder()
                         .withIdentifier("ab12")
+                        .withCodeType(CodeType.PRIVATE)
                         .build()
         );
 
@@ -47,7 +48,7 @@ public class CodeParserTest {
                 CodeBuilder.createBuilder()
                         .withIdentifier("123B")
                         .withOwner("cezarmathe")
-                        .withPublicStatus(true)
+                        .withCodeType(CodeType.PUBLIC_NO_PASSCODE)
                         .build()
         );
 
@@ -56,7 +57,7 @@ public class CodeParserTest {
                         .withIdentifier("1111")
                         .withOwner("numelemeu")
                         .withPasscode("qudadjas22")
-                        .withPublicStatus(true)
+                        .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                         .build()
         );
 

@@ -82,15 +82,12 @@ public class CodeParser {
                 codeBuilder.withIdentifier(matcher.group("identifier"));
 
                 if (matcher.groupCount() > 1) {
-                    codeBuilder.withOwner(matcher.group("owner"))
-                            .withPublicStatus(true);
+                    codeBuilder.withOwner(matcher.group("owner"));
 
                     if (matcher.groupCount() == 3) {
                         codeBuilder.withPasscode(matcher.group("passcode"));
                     }
 
-                } else {
-                    codeBuilder.withPublicStatus(false);
                 }
 
                 /*add the code in the workingRawOutput, along with it's start position*/

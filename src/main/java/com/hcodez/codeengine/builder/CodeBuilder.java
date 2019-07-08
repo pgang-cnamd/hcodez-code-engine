@@ -64,11 +64,6 @@ public class CodeBuilder {
         return this;
     }
 
-    public CodeBuilder withPublicStatus(boolean publicStatus) {
-        this.code.setPublicStatus(publicStatus);
-        return this;
-    }
-
     public CodeBuilder withCreateTime(Instant createTime) {
         this.code.setCreateTime(createTime);
         return this;
