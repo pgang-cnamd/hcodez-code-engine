@@ -65,4 +65,30 @@ public class CodeParserTest {
             CodeAssert.assertThat(parsedList.get(i)).isEqualTo(goodList.get(i));
         }
     }
+
+    @After
+    public void parseSingleTest() throws IOException {
+        CodeParser codeParser = new CodeParser();
+
+        ArrayList<Code> parsedList = codeParser
+                .addCodeType(CodeType.PRIVATE)
+                .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
+                .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
+                .parseString(
+                        TestCommon.getResourceAsString("/plain_text/code_parser_parse_single_test.txt")
+                );
+
+        ArrayList<Code> goodList = new ArrayList<>();
+
+        goodList.add(
+                CodeBuilder.createBuilder()
+                        .withIdentifier("aB1g")
+                        .withCodeType(CodeType.PRIVATE)
+                        .build()
+        );
+
+        for (int i = 0; i < parsedList.size(); i++) {
+            CodeAssert.assertThat(parsedList.get(i)).isEqualTo(goodList.get(i));
+        }
+    }
 }
