@@ -47,7 +47,7 @@ public enum CodeType {
      *
      * @return an ArrayList with every CodeType availableg
      */
-    public ArrayList<CodeType> all() {
+    public static ArrayList<CodeType> all() {
         final ArrayList<CodeType> allCodeTypes = new ArrayList<>();
 
         allCodeTypes.add(CodeType.PRIVATE);
