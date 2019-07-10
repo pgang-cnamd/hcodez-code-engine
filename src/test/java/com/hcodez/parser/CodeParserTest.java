@@ -23,7 +23,7 @@ public class CodeParserTest {
                 .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
                 .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .parseString(
-                        TestCommon.getResourceAsString("/plain_text/code_factory_code_list.txt")
+                        TestCommon.getResourceAsString("/plain_text/code_parser_parse_string_test.txt")
                 );
 
         ArrayList<Code> goodList = new ArrayList<>();
