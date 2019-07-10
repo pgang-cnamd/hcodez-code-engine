@@ -5,6 +5,8 @@ import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.model.CodeType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 
 /**
@@ -31,6 +33,28 @@ public class CodeParser {
             throw new RuntimeException("can't scan for the same code type twice");
 
         this.codeTypes.add(codeType);
+        return this;
+    }
+
+    /**
+     * Add a list of CodeTypes to the code parser code list
+     * @param codes the list of codes
+     * @return this object
+     */
+    public CodeParser addCodeTypes(List<CodeType> codes) {
+        for (final CodeType codeType: codes) {
+            this.addCodeType(codeType);
+        }
+        return this;
+    }
+
+    /**
+     * Add a number of codes to the code parser code list
+     * @param codes the list of codes
+     * @return this object
+     */
+    public CodeParser addCodeType(CodeType... codes) {
+        this.addCodeTypes(Arrays.asList(codes));
         return this;
     }
 
@@ -74,24 +98,10 @@ public class CodeParser {
             final Matcher matcher = codeType.getPattern().matcher(input);
 
             while (matcher.find()) {
-
-                /*create the code builder used to build the code*/
-                final CodeBuilder codeBuilder = CodeBuilder.createBuilder().withCodeType(codeType);
-
-                /*extract code fields*/
-                codeBuilder.withIdentifier(matcher.group("identifier"));
-
-                if (matcher.groupCount() > 1) {
-                    codeBuilder.withOwner(matcher.group("owner"));
-
-                    if (matcher.groupCount() == 3) {
-                        codeBuilder.withPasscode(matcher.group("passcode"));
-                    }
-
-                }
-
                 /*add the code in the workingRawOutput, along with it's start position*/
-                workingRawOutput.addParserProcessingMaterial(new ParserProcessingMaterial(codeBuilder.build(), matcher.start()));
+                workingRawOutput.addParserProcessingMaterial(
+                        new ParserProcessingMaterial(getCodeFromMatcher(matcher, codeType),
+                                matcher.start()));
 
                 /*increase the universalCodeCount*/
                 universalCodeCount++;
@@ -144,5 +154,62 @@ public class CodeParser {
         }
 
         return finalCodeList;
+    }
+
+    /**
+     * Parse a single code from a string(the first code found for a code type)
+     * To be used when the developer knows only a single code will be send for parsing
+     *
+     * @param input the input string that needs to be parser
+     * @return the code found
+     */
+    public Code parseSingle(String input) {
+
+        if (this.codeTypes.size() == 0) {
+            return null;
+        }
+
+        /*clean up the input(remove all whitespaces and endlines*/
+        input = input.replaceAll("\\s+", "");
+        input = input.replaceAll("[\n\r]", "");
+
+        /*final code list*/
+        final ArrayList<Code> finalCodeList = new ArrayList<>();
+
+        /*find the first code for the first code type*/
+        for (final CodeType codeType: this.codeTypes) {
+
+            /*create a new matcher that matches patterns on the given input String*/
+            final Matcher matcher = codeType.getPattern().matcher(input);
+
+            if (matcher.find()) {
+                return getCodeFromMatcher(matcher, codeType);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Extract a Code from a matcher
+     * @param matcher the matcher to be used
+     * @param codeType the code type for the Code
+     * @return the Code
+     */
+    private Code getCodeFromMatcher(final Matcher matcher, final CodeType codeType) {
+        /*create the code builder used to build the code*/
+        final CodeBuilder codeBuilder = CodeBuilder.createBuilder().withCodeType(codeType);
+
+        /*extract code fields*/
+        codeBuilder.withIdentifier(matcher.group("identifier"));
+
+        if (matcher.groupCount() > 1) {
+            codeBuilder.withOwner(matcher.group("owner"));
+
+            if (matcher.groupCount() == 3) {
+                codeBuilder.withPasscode(matcher.group("passcode"));
+            }
+
+        }
+        return codeBuilder.build();
     }
 }
