@@ -5,6 +5,8 @@ import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.model.CodeType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 
 /**
@@ -31,6 +33,28 @@ public class CodeParser {
             throw new RuntimeException("can't scan for the same code type twice");
 
         this.codeTypes.add(codeType);
+        return this;
+    }
+
+    /**
+     * Add a list of CodeTypes to the code parser code list
+     * @param codes the list of codes
+     * @return this object
+     */
+    public CodeParser addCodeTypes(List<CodeType> codes) {
+        for (final CodeType codeType: codes) {
+            this.addCodeType(codeType);
+        }
+        return this;
+    }
+
+    /**
+     * Add a number of codes to the code parser code list
+     * @param codes the list of codes
+     * @return this object
+     */
+    public CodeParser addCodeType(CodeType... codes) {
+        this.addCodeTypes(Arrays.asList(codes));
         return this;
     }
 
