@@ -19,9 +19,7 @@ public class CodeParserTest {
         CodeParser codeParser = new CodeParser();
 
         ArrayList<Code> parsedList = codeParser
-                .addCodeType(CodeType.PRIVATE)
-                .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
-                .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
+                .addCodeTypes(CodeType.all())
                 .parseString(
                         TestCommon.getResourceAsString("/plain_text/code_parser_parse_string_test.txt")
                 );
