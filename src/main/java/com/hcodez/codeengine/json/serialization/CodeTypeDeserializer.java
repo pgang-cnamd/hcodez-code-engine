@@ -11,6 +11,8 @@ import java.lang.reflect.Type;
 public class CodeTypeDeserializer implements JsonDeserializer<CodeType> {
     @Override
     public CodeType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return CodeType.fromString(json.getAsJsonPrimitive().getAsString());
+        return CodeType.fromString(json.getAsJsonPrimitive().getAsString()).isPresent() ?
+                CodeType.fromString(json.getAsJsonPrimitive().getAsString()).get() :
+                null;
     }
 }
