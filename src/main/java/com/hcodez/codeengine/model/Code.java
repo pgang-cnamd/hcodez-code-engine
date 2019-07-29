@@ -8,6 +8,8 @@ import com.hcodez.codeengine.json.serialization.CodeTypeSerializer;
 import com.hcodez.codeengine.json.serialization.InstantDeserializer;
 import com.hcodez.codeengine.json.serialization.InstantSerializer;
 import org.joda.time.Instant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 
@@ -15,6 +17,8 @@ import java.net.URL;
  * Basic bean for storing basic information related to a code.
  */
 public class Code {
+
+    private static final Logger logger = LoggerFactory.getLogger(Code.class);
 
     /**
      * The 4 character code identifier
@@ -148,16 +152,16 @@ public class Code {
                     builder.append("@");
                     builder.append(owner);
                 }
-            } catch (Exception ignored) {
-
+            } catch (Exception exception) {
+                logger.warn(exception.getMessage());
             } finally {
                 try {
                     if (!this.getPasscode().equals("")) {
                         builder.append("!");
                         builder.append(passcode);
                     }
-                } catch (Exception ignored) {
-
+                } catch (Exception exception) {
+                    logger.warn(exception.getMessage());
                 }
             }
         } else {
@@ -172,8 +176,8 @@ public class Code {
                         builder.append("!");
                         builder.append(passcode);
                     }
-                } catch (Exception ignored) {
-
+                } catch (Exception exception) {
+                    logger.warn(exception.getMessage());
                 }
             }
         }
