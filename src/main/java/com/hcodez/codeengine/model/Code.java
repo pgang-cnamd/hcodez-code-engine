@@ -1,5 +1,6 @@
 package com.hcodez.codeengine.model;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.hcodez.codeengine.json.serialization.CodeTypeDeserializer;
@@ -182,21 +183,20 @@ public class Code {
         return builder.toString();
     }
 
+    private static Gson getGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(Instant.class, new InstantSerializer())
+                .registerTypeAdapter(Instant.class, new InstantDeserializer())
+                .registerTypeAdapter(CodeType.class, new CodeTypeSerializer())
+                .registerTypeAdapter(CodeType.class, new CodeTypeDeserializer())
+                .create();
+    }
+
     public String toJson() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeSerializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeDeserializer());
-        return gsonBuilder.create().toJson(this);
+        return getGson().toJson(this);
     }
 
     public static Code fromJson(String input) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeSerializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeDeserializer());
-        return gsonBuilder.create().fromJson(input, Code.class);
+        return getGson().fromJson(input, Code.class);
     }
 }
