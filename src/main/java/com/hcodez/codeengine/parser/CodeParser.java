@@ -4,9 +4,7 @@ import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.model.CodeType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 
 /**
@@ -14,11 +12,11 @@ import java.util.regex.Matcher;
  */
 public class CodeParser {
 
-    private final ArrayList<CodeType> codeTypes;
+    private final Set<CodeType> codeTypes;
 
 
     public CodeParser() {
-        codeTypes = new ArrayList<>();
+        codeTypes = new HashSet<>();
     }
 
 
@@ -29,9 +27,6 @@ public class CodeParser {
      * @return this object
      */
     public CodeParser addCodeType(CodeType codeType) {
-        if (this.codeTypes.contains(codeType))
-            throw new RuntimeException("can't scan for the same code type twice");
-
         this.codeTypes.add(codeType);
         return this;
     }
@@ -87,11 +82,8 @@ public class CodeParser {
         int universalCodeCount = 0;
 
         /*extract raw codes and positions based on CodeType*/
-        for (int i = 0; i < codeTypes.size(); i++) {
-
+        for (CodeType codeType : codeTypes) {
             /*get the current CodeType*/
-            final CodeType codeType = codeTypes.get(i);
-
             /*initialize the current code type dependant raw parser output*/
             final CodeParserCodeTypeDependantRawOutput workingRawOutput = new CodeParserCodeTypeDependantRawOutput();
 
