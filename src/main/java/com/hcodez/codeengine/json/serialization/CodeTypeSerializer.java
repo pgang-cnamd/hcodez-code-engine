@@ -1,4 +1,4 @@
-package com.hcodez.codeengine.json;
+package com.hcodez.codeengine.json.serialization;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;

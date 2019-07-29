@@ -2,10 +2,10 @@ package com.hcodez.codeengine.model;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.hcodez.codeengine.json.CodeTypeDeserializer;
-import com.hcodez.codeengine.json.CodeTypeSerializer;
-import com.hcodez.codeengine.json.InstantDeserializer;
-import com.hcodez.codeengine.json.InstantSerializer;
+import com.hcodez.codeengine.json.serialization.CodeTypeDeserializer;
+import com.hcodez.codeengine.json.serialization.CodeTypeSerializer;
+import com.hcodez.codeengine.json.serialization.InstantDeserializer;
+import com.hcodez.codeengine.json.serialization.InstantSerializer;
 import org.joda.time.Instant;
 
 /**
