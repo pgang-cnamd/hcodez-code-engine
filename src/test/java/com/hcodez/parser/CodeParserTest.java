@@ -10,6 +10,7 @@ import org.junit.After;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CodeParserTest {
 
@@ -18,7 +19,7 @@ public class CodeParserTest {
 
         CodeParser codeParser = new CodeParser();
 
-        ArrayList<Code> parsedList = codeParser
+        List<Code> parsedList = codeParser
                 .addCodeTypes(CodeType.all())
                 .parseString(
                         TestCommon.getResourceAsString("/plain_text/code_parser_parse_string_test.txt")
@@ -68,7 +69,7 @@ public class CodeParserTest {
     public void parseSingleTest() throws IOException {
         CodeParser codeParser = new CodeParser();
 
-        ArrayList<Code> parsedList = codeParser
+        List<Code> parsedList = codeParser
                 .addCodeType(CodeType.PRIVATE)
                 .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
                 .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)

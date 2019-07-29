@@ -64,18 +64,19 @@ public class CodeParser {
      * @param input the input string
      * @return the list of codes
      */
-    public ArrayList<Code> parseString(String input) {
+    public List<Code> parseString(String input) {
 
+        /*final code list*/
+        final ArrayList<Code> finalCodeList = new ArrayList<>();
+
+        /*if no code types are given, return an empty list*/
         if (this.codeTypes.size() == 0) {
-            return null;
+            return finalCodeList;
         }
 
         /*clean up the input(remove all whitespaces and endlines*/
         input = input.replaceAll("\\s+", "");
         input = input.replaceAll("[\n\r]", "");
-
-        /*final code list*/
-        final ArrayList<Code> finalCodeList = new ArrayList<>();
 
         /*
         initialize the raw parsing output before adding to it
