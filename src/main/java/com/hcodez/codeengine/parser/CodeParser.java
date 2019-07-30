@@ -3,6 +3,8 @@ package com.hcodez.codeengine.parser;
 import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
 import com.hcodez.codeengine.model.CodeType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -11,6 +13,8 @@ import java.util.regex.Matcher;
  * Parser for extracting codes from different types of input
  */
 public class CodeParser {
+
+    private static final Logger logger = LoggerFactory.getLogger(CodeParser.class);
 
     private final Set<CodeType> codeTypes;
 
@@ -27,6 +31,7 @@ public class CodeParser {
      * @return this object
      */
     public CodeParser addCodeType(CodeType codeType) {
+        logger.trace("added code type {}", codeType);
         this.codeTypes.add(codeType);
         return this;
     }
@@ -37,6 +42,7 @@ public class CodeParser {
      * @return this object
      */
     public CodeParser addCodeTypes(List<CodeType> codes) {
+        logger.trace("adding multiple code types from list: {}", codes);
         for (final CodeType codeType: codes) {
             this.addCodeType(codeType);
         }
@@ -60,18 +66,22 @@ public class CodeParser {
      * @return the list of codes
      */
     public List<Code> parseString(String input) {
+        logger.trace("parsing input string");
 
         /*final code list*/
         final ArrayList<Code> finalCodeList = new ArrayList<>();
 
         /*if no code types are given, return an empty list*/
         if (this.codeTypes.size() == 0) {
+            logger.warn("no code types given for this parser");
             return finalCodeList;
         }
 
         /*clean up the input(remove all whitespaces and endlines*/
+        logger.trace("cleaning up the input string");
         input = input.replaceAll("\\s+", "");
         input = input.replaceAll("[\n\r]", "");
+        logger.info("parsing input string: {}", input);
 
         /*
         initialize the raw parsing output before adding to it
@@ -83,6 +93,7 @@ public class CodeParser {
 
         /*extract raw codes and positions based on CodeType*/
         for (CodeType codeType : codeTypes) {
+            logger.trace("parsing for code type {}", codeType.toString());
             /*get the current CodeType*/
             /*initialize the current code type dependant raw parser output*/
             final CodeParserCodeTypeDependantRawOutput workingRawOutput = new CodeParserCodeTypeDependantRawOutput();
@@ -91,6 +102,7 @@ public class CodeParser {
             final Matcher matcher = codeType.getPattern().matcher(input);
 
             while (matcher.find()) {
+                logger.trace("found {}", getCodeFromMatcher(matcher, codeType).toString());
                 /*add the code in the workingRawOutput, along with it's start position*/
                 workingRawOutput.addParserProcessingMaterial(
                         new ParserProcessingMaterial(getCodeFromMatcher(matcher, codeType),
@@ -103,6 +115,8 @@ public class CodeParser {
             /*add the extracted raw output into the rawParseOutput, then proceed to the next CodeType*/
             rawParseOutput.add(workingRawOutput);
         }
+
+        logger.trace("sorting {} codes", universalCodeCount);
 
         /*process(and sort) the codes into the final code list, then return it*/
         for (int localCodeCount = 0; localCodeCount < universalCodeCount; localCodeCount++) {
@@ -137,6 +151,7 @@ public class CodeParser {
             final ParserProcessingMaterial winningParserMaterial = winningCodeTypeDependantRawOutput.getCurrentParserProcessingMaterial();
 
             /*add the code in the final code list*/
+            logger.trace("sorting round won by {}" + winningParserMaterial.getCode().toString());
             finalCodeList.add(
                     winningParserMaterial.getCode()
             );
@@ -146,6 +161,7 @@ public class CodeParser {
             rawParseOutput.set(codeTypeItemIndexLowestStartPosition, winningCodeTypeDependantRawOutput);
         }
 
+        logger.info("parsed input into {}", finalCodeList);
         return finalCodeList;
     }
 
