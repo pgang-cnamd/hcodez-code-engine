@@ -1,12 +1,15 @@
 package com.hcodez.codeengine.model;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.hcodez.codeengine.json.CodeTypeDeserializer;
-import com.hcodez.codeengine.json.CodeTypeSerializer;
-import com.hcodez.codeengine.json.InstantDeserializer;
-import com.hcodez.codeengine.json.InstantSerializer;
+import com.hcodez.codeengine.json.serialization.CodeTypeDeserializer;
+import com.hcodez.codeengine.json.serialization.CodeTypeSerializer;
+import com.hcodez.codeengine.json.serialization.InstantDeserializer;
+import com.hcodez.codeengine.json.serialization.InstantSerializer;
 import org.joda.time.Instant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 
@@ -14,6 +17,8 @@ import java.net.URL;
  * Basic bean for storing basic information related to a code.
  */
 public class Code {
+
+    private static final Logger logger = LoggerFactory.getLogger(Code.class);
 
     /**
      * The 4 character code identifier
@@ -147,16 +152,16 @@ public class Code {
                     builder.append("@");
                     builder.append(owner);
                 }
-            } catch (Exception ignored) {
-
+            } catch (Exception exception) {
+                logger.warn(exception.getMessage());
             } finally {
                 try {
                     if (!this.getPasscode().equals("")) {
                         builder.append("!");
                         builder.append(passcode);
                     }
-                } catch (Exception ignored) {
-
+                } catch (Exception exception) {
+                    logger.warn(exception.getMessage());
                 }
             }
         } else {
@@ -171,8 +176,8 @@ public class Code {
                         builder.append("!");
                         builder.append(passcode);
                     }
-                } catch (Exception ignored) {
-
+                } catch (Exception exception) {
+                    logger.warn(exception.getMessage());
                 }
             }
         }
@@ -182,21 +187,20 @@ public class Code {
         return builder.toString();
     }
 
+    private static Gson getGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(Instant.class, new InstantSerializer())
+                .registerTypeAdapter(Instant.class, new InstantDeserializer())
+                .registerTypeAdapter(CodeType.class, new CodeTypeSerializer())
+                .registerTypeAdapter(CodeType.class, new CodeTypeDeserializer())
+                .create();
+    }
+
     public String toJson() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeSerializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeDeserializer());
-        return gsonBuilder.create().toJson(this);
+        return getGson().toJson(this);
     }
 
     public static Code fromJson(String input) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantSerializer());
-        gsonBuilder.registerTypeAdapter(Instant.class, new InstantDeserializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeSerializer());
-        gsonBuilder.registerTypeAdapter(CodeType.class, new CodeTypeDeserializer());
-        return gsonBuilder.create().fromJson(input, Code.class);
+        return getGson().fromJson(input, Code.class);
     }
 }

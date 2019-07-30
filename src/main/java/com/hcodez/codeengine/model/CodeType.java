@@ -1,6 +1,7 @@
 package com.hcodez.codeengine.model;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -71,16 +72,16 @@ public enum CodeType {
         }
     }
 
-    public static CodeType fromString(String input) {
+    public static Optional<CodeType> fromString(String input) {
         switch (input) {
             case "private":
-                return CodeType.PRIVATE;
+                return Optional.of(CodeType.PRIVATE);
             case "public_no_passcode":
-                return CodeType.PUBLIC_NO_PASSCODE;
+                return Optional.of(CodeType.PUBLIC_NO_PASSCODE);
             case "public_with_passcode":
-                return CodeType.PUBLIC_WITH_PASSCODE;
+                return Optional.of(CodeType.PUBLIC_WITH_PASSCODE);
             default:
-                return null;
+                return Optional.empty();
         }
     }
 }
