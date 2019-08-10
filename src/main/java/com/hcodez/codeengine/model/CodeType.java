@@ -62,23 +62,23 @@ public enum CodeType {
     public String toString() {
         switch (this) {
             case PRIVATE:
-                return "private";
+                return "PRIVATE";
             case PUBLIC_NO_PASSCODE:
-                return "public_no_passcode";
+                return "PUBLIC_NO_PASSCODE";
             case PUBLIC_WITH_PASSCODE:
-                return "public_with_passcode";
+                return "PUBLIC_WITH_PASSCODE";
             default:
-                return "unknown";
+                return "UNKNOWN";
         }
     }
 
     public static Optional<CodeType> fromString(String input) {
         switch (input) {
-            case "private":
+            case "PRIVATE":
                 return Optional.of(CodeType.PRIVATE);
-            case "public_no_passcode":
+            case "PUBLIC_NO_PASSCODE":
                 return Optional.of(CodeType.PUBLIC_NO_PASSCODE);
-            case "public_with_passcode":
+            case "PUBLIC_WITH_PASSCODE":
                 return Optional.of(CodeType.PUBLIC_WITH_PASSCODE);
             default:
                 return Optional.empty();
