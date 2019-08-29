@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Parser for extracting codes from different types of input
@@ -94,26 +95,27 @@ public class CodeParser {
         /*extract raw codes and positions based on CodeType*/
         for (CodeType codeType : codeTypes) {
             logger.trace("parsing for code type {}", codeType.toString());
-            /*get the current CodeType*/
             /*initialize the current code type dependant raw parser output*/
             final CodeParserCodeTypeDependantRawOutput workingRawOutput = new CodeParserCodeTypeDependantRawOutput();
 
             /*create a new matcher that matches patterns on the given input String*/
-            final Matcher matcher = codeType.getPattern().matcher(input);
+            for (final Pattern pattern : codeType.getPatterns()) {
+                final Matcher matcher = pattern.matcher(input);
 
-            while (matcher.find()) {
-                logger.trace("found {}", getCodeFromMatcher(matcher, codeType).toString());
-                /*add the code in the workingRawOutput, along with it's start position*/
-                workingRawOutput.addParserProcessingMaterial(
-                        new ParserProcessingMaterial(getCodeFromMatcher(matcher, codeType),
-                                matcher.start()));
+                while (matcher.find()) {
+                    logger.trace("found {}", getCodeFromMatcher(matcher, codeType).toString());
+                    /*add the code in the workingRawOutput, along with it's start position*/
+                    workingRawOutput.addParserProcessingMaterial(
+                            new ParserProcessingMaterial(getCodeFromMatcher(matcher, codeType),
+                                    matcher.start()));
 
-                /*increase the universalCodeCount*/
-                universalCodeCount++;
+                    /*increase the universalCodeCount*/
+                    universalCodeCount++;
+                }
+
+                /*add the extracted raw output into the rawParseOutput, then proceed to the next CodeType*/
+                rawParseOutput.add(workingRawOutput);
             }
-
-            /*add the extracted raw output into the rawParseOutput, then proceed to the next CodeType*/
-            rawParseOutput.add(workingRawOutput);
         }
 
         logger.trace("sorting {} codes", universalCodeCount);
@@ -188,11 +190,12 @@ public class CodeParser {
         /*find the first code for the first code type*/
         for (final CodeType codeType: this.codeTypes) {
 
-            /*create a new matcher that matches patterns on the given input String*/
-            final Matcher matcher = codeType.getPattern().matcher(input);
-
-            if (matcher.find()) {
-                return getCodeFromMatcher(matcher, codeType);
+            /*create matchers that match patterns on the given input String*/
+            for (final Pattern pattern : codeType.getPatterns()) {
+                final Matcher matcher = pattern.matcher(input);
+                if (matcher.find()) {
+                    return getCodeFromMatcher(matcher, codeType);
+                }
             }
         }
         return null;
