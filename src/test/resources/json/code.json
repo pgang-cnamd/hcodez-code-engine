@@ -2,9 +2,5 @@
   "identifier": "aB12",
   "owner": "cezarmathe",
   "passcode": "d723y7x28",
-  "name": "A test code",
-  "url": "https://api.example.com/v0/code/aB12@cezarmathe",
-  "create_time": 1560354133,
-  "update_time": 1560357733,
   "code_type": "PUBLIC_WITH_PASSCODE"
 }

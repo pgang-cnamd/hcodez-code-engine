@@ -1,7 +1,7 @@
 package com.hcodez.codeengine.parser;
 
-import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
+import com.hcodez.codeengine.model.MutableCode;
 import com.hcodez.codeengine.model.CodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,7 +172,7 @@ public class CodeParser {
      * @param input the input string that needs to be parser
      * @return the code found
      */
-    public Code parseSingle(String input) {
+    public MutableCode parseSingle(String input) {
 
         if (this.codeTypes.size() == 0) {
             return null;
@@ -183,7 +183,7 @@ public class CodeParser {
         input = input.replaceAll("[\n\r]", "");
 
         /*final code list*/
-        final ArrayList<Code> finalCodeList = new ArrayList<>();
+        final ArrayList<MutableCode> finalCodeList = new ArrayList<>();
 
         /*find the first code for the first code type*/
         for (final CodeType codeType: this.codeTypes) {
@@ -204,20 +204,19 @@ public class CodeParser {
      * @param codeType the code type for the Code
      * @return the Code
      */
-    private Code getCodeFromMatcher(final Matcher matcher, final CodeType codeType) {
+    private MutableCode getCodeFromMatcher(final Matcher matcher, final CodeType codeType) {
         /*create the code builder used to build the code*/
-        final CodeBuilder codeBuilder = CodeBuilder.createBuilder().withCodeType(codeType);
+        final MutableCode.MutableCodeBuilder codeBuilder = MutableCode.builder().codeType(codeType);
 
         /*extract code fields*/
-        codeBuilder.withIdentifier(matcher.group("identifier"));
+        codeBuilder.identifier(matcher.group("identifier"));
 
         if (matcher.groupCount() > 1) {
-            codeBuilder.withOwner(matcher.group("owner"));
+            codeBuilder.owner(matcher.group("owner"));
 
             if (matcher.groupCount() == 3) {
-                codeBuilder.withPasscode(matcher.group("passcode"));
+                codeBuilder.passcode(matcher.group("passcode"));
             }
-
         }
         return codeBuilder.build();
     }

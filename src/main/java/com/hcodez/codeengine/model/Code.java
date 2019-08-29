@@ -7,5 +7,5 @@ public interface Code {
     String getIdentifier();
     String getOwner();
     String getPasscode();
-    String getCodeType();
+    CodeType getCodeType();
 }

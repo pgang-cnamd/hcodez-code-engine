@@ -1,7 +1,7 @@
 package com.hcodez.parser;
 
-import com.hcodez.codeengine.builder.CodeBuilder;
 import com.hcodez.codeengine.model.Code;
+import com.hcodez.codeengine.model.MutableCode;
 import com.hcodez.codeengine.model.CodeType;
 import com.hcodez.codeengine.parser.CodeParser;
 import com.hcodez.util.CodeAssert;
@@ -28,35 +28,35 @@ public class CodeParserTest {
         ArrayList<Code> goodList = new ArrayList<>();
 
         goodList.add(
-                CodeBuilder.createBuilder()
-                        .withIdentifier("1111")
-                        .withOwner("adasdasdas")
-                        .withPasscode("823ijkdw")
-                        .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
+                MutableCode.builder()
+                        .identifier("1111")
+                        .owner("adasdasdas")
+                        .passcode("823ijkdw")
+                        .codeType(CodeType.PUBLIC_WITH_PASSCODE)
                         .build()
         );
 
         goodList.add(
-                CodeBuilder.createBuilder()
-                        .withIdentifier("ab12")
-                        .withCodeType(CodeType.PRIVATE)
+                MutableCode.builder()
+                        .identifier("ab12")
+                        .codeType(CodeType.PRIVATE)
                         .build()
         );
 
         goodList.add(
-                CodeBuilder.createBuilder()
-                        .withIdentifier("123B")
-                        .withOwner("cezarmathe")
-                        .withCodeType(CodeType.PUBLIC_NO_PASSCODE)
+                MutableCode.builder()
+                        .identifier("123B")
+                        .owner("cezarmathe")
+                        .codeType(CodeType.PUBLIC_NO_PASSCODE)
                         .build()
         );
 
         goodList.add(
-                CodeBuilder.createBuilder()
-                        .withIdentifier("1111")
-                        .withOwner("numelemeu")
-                        .withPasscode("qudadjas22")
-                        .withCodeType(CodeType.PUBLIC_WITH_PASSCODE)
+                MutableCode.builder()
+                        .identifier("1111")
+                        .owner("numelemeu")
+                        .passcode("qudadjas22")
+                        .codeType(CodeType.PUBLIC_WITH_PASSCODE)
                         .build()
         );
 
@@ -70,9 +70,7 @@ public class CodeParserTest {
         CodeParser codeParser = new CodeParser();
 
         List<Code> parsedList = codeParser
-                .addCodeType(CodeType.PRIVATE)
-                .addCodeType(CodeType.PUBLIC_NO_PASSCODE)
-                .addCodeType(CodeType.PUBLIC_WITH_PASSCODE)
+                .addCodeTypes(CodeType.all())
                 .parseString(
                         TestCommon.getResourceAsString("/plain_text/code_parser_parse_single_test.txt")
                 );
@@ -80,9 +78,9 @@ public class CodeParserTest {
         ArrayList<Code> goodList = new ArrayList<>();
 
         goodList.add(
-                CodeBuilder.createBuilder()
-                        .withIdentifier("aB1g")
-                        .withCodeType(CodeType.PRIVATE)
+                MutableCode.builder()
+                        .identifier("aB1g")
+                        .codeType(CodeType.PRIVATE)
                         .build()
         );
 
