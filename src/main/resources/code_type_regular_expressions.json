@@ -1,0 +1,19 @@
+{
+  "PRIVATE": [
+      "<(?<identifier>[0-9a-zA-Z]{4})>",
+      "(?<identifier>[0-9a-zA-Z]{4})>",
+      "<(?<identifier>[0-9a-zA-Z]{4})"
+  ],
+
+  "PUBLIC_NO_PASSCODE": [
+      "<(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})>",
+      "<(?<identifier>[0-9a-zA-Z]{4})(?<owner>[0-9a-zA-Z]{4,16})>",
+      "(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})>"
+  ],
+
+  "PUBLIC_WITH_PASSCODE": [
+      "<(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})!(?<passcode>[0-9a-zA-Z]{4,16})>",
+      "<(?<identifier>[0-9a-zA-Z]{4})(?<owner>[0-9a-zA-Z]{4,16})!(?<passcode>[0-9a-zA-Z]{4,16})>",
+      "(?<identifier>[0-9a-zA-Z]{4})@(?<owner>[0-9a-zA-Z]{4,16})!(?<passcode>[0-9a-zA-Z]{4,16})>"
+  ]
+}
