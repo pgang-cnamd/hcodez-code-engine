@@ -1,6 +1,6 @@
 package com.hcodez.codeengine.parser;
 
-import com.hcodez.codeengine.model.MutableCode;
+import com.hcodez.codeengine.model.Code;
 
 /**
  * Processing material parsed using regex by the CodeParser
@@ -10,23 +10,23 @@ public class ParserProcessingMaterial {
     /**
      * The parsed code
      */
-    private MutableCode code;
+    private Code code;
 
     /**
      * The starting position of the parsed code
      */
     private Integer codeStartPosition;
 
-    public ParserProcessingMaterial(MutableCode code, Integer codeStartPosition) {
+    public ParserProcessingMaterial(Code code, Integer codeStartPosition) {
         this.code = code;
         this.codeStartPosition = codeStartPosition;
     }
 
-    public MutableCode getCode() {
+    public Code getCode() {
         return code;
     }
 
-    public void setCode(MutableCode code) {
+    public void setCode(Code code) {
         this.code = code;
     }
 
