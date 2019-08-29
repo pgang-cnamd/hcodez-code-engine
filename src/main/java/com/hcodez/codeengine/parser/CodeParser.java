@@ -172,7 +172,7 @@ public class CodeParser {
      * @param input the input string that needs to be parser
      * @return the code found
      */
-    public MutableCode parseSingle(String input) {
+    public Code parseSingle(String input) {
 
         if (this.codeTypes.size() == 0) {
             return null;
@@ -183,7 +183,7 @@ public class CodeParser {
         input = input.replaceAll("[\n\r]", "");
 
         /*final code list*/
-        final ArrayList<MutableCode> finalCodeList = new ArrayList<>();
+        final ArrayList<Code> finalCodeList = new ArrayList<>();
 
         /*find the first code for the first code type*/
         for (final CodeType codeType: this.codeTypes) {
@@ -204,7 +204,7 @@ public class CodeParser {
      * @param codeType the code type for the Code
      * @return the Code
      */
-    private MutableCode getCodeFromMatcher(final Matcher matcher, final CodeType codeType) {
+    private Code getCodeFromMatcher(final Matcher matcher, final CodeType codeType) {
         /*create the code builder used to build the code*/
         final MutableCode.MutableCodeBuilder codeBuilder = MutableCode.builder().codeType(codeType);
 
