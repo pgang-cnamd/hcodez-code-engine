@@ -49,51 +49,7 @@ public class MutableCode implements Code {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-
-        builder.append("<");
-        builder.append(identifier);
-
-        /*if the code does not have a code type, infer it's String value from it's fields*/
-        if (this.codeType == null) {
-            try {
-                if (!this.getOwner().equals("")) {
-                    builder.append("@");
-                    builder.append(owner);
-                }
-            } catch (Exception exception) {
-                logger.warn(exception.getMessage());
-            } finally {
-                try {
-                    if (!this.getPasscode().equals("")) {
-                        builder.append("!");
-                        builder.append(passcode);
-                    }
-                } catch (Exception exception) {
-                    logger.warn(exception.getMessage());
-                }
-            }
-        } else {
-            /*if the code is not private, append the owner username*/
-            if (this.codeType != CodeType.PRIVATE) {
-                builder.append("@");
-                builder.append(owner);
-            }
-            if (this.codeType == CodeType.PUBLIC_WITH_PASSCODE) {
-                try {
-                    if (!this.getPasscode().equals("")) {
-                        builder.append("!");
-                        builder.append(passcode);
-                    }
-                } catch (Exception exception) {
-                    logger.warn(exception.getMessage());
-                }
-            }
-        }
-
-        builder.append(">");
-
-        return builder.toString();
+        return Code.string(this);
     }
 
     private static Gson getGson() {
