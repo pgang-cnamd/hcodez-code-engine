@@ -37,7 +37,7 @@ public interface Code {
      */
     CodeType getCodeType();
 
-    static final Logger logger = LoggerFactory.getLogger(MutableCode.class);
+    Logger logger = LoggerFactory.getLogger(MutableCode.class);
 
     /**
      * Convert a code into its String representation
