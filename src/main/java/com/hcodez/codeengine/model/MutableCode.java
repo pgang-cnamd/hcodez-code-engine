@@ -52,6 +52,7 @@ public class MutableCode implements Code {
         return Code.string(this);
     }
 
+    @Deprecated
     private static Gson getGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(CodeType.class, new CodeTypeSerializer())
