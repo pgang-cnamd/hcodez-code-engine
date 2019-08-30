@@ -111,7 +111,7 @@ public interface Code {
      * @return the Code
      */
     static Code json(String input) {
-        Map<String, Object> tmpMap = new HashMap<>();
+        Map<String, Object> tmpMap;
         Type typeToken = new TypeToken<Map<String, Object>>(){}.getType();
         tmpMap = GsonUtil.getGsonInstance().fromJson(input, typeToken);
         Map<String, Object> map = tmpMap;
