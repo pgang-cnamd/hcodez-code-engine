@@ -16,6 +16,6 @@ public class CodeTest {
                 .codeType(CodeType.PUBLIC_WITH_PASSCODE)
                 .build();
 
-        assert code.toString().equals("<aB12@testOwNeR!mYPass12code>");
+        assert Code.string(code).equals("<aB12@testOwNeR!mYPass12code>");
     }
 }
