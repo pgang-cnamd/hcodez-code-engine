@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.hcodez.codeengine.json.serialization.CodeTypeDeserializer;
 import com.hcodez.codeengine.json.serialization.CodeTypeSerializer;
+import com.hcodez.codeengine.json.serialization.GsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -61,10 +62,10 @@ public class MutableCode implements Code {
     }
 
     public String toJson() {
-        return getGson().toJson(this);
+        return GsonUtil.getGsonInstance().toJson(this);
     }
 
     public static MutableCode fromJson(String input) {
-        return getGson().fromJson(input, MutableCode.class);
+        return GsonUtil.getGsonInstance().fromJson(input, MutableCode.class);
     }
 }
