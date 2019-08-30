@@ -24,4 +24,5 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.2.3'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    implementation 'com.github.mifmif:generex:1.0.2'
 }
