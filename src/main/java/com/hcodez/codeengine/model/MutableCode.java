@@ -1,10 +1,7 @@
 package com.hcodez.codeengine.model;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.hcodez.codeengine.json.serialization.CodeTypeDeserializer;
-import com.hcodez.codeengine.json.serialization.CodeTypeSerializer;
 import com.hcodez.codeengine.json.serialization.GsonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
