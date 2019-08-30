@@ -84,4 +84,18 @@ public interface Code {
 
         return builder.toString();
     }
+
+    /**
+     * Convert a Code into a MutableCode
+     * @param code the Code
+     * @return the MutableCode
+     */
+    static MutableCode mutable(Code code) {
+        return MutableCode.builder()
+                .identifier(code.getIdentifier())
+                .owner(code.getOwner())
+                .passcode(code.getPasscode())
+                .codeType(code.getCodeType())
+                .build();
+    }
 }
