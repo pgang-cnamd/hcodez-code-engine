@@ -2,8 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group 'com.github.pgang-cnamd'
-version '3.2.1g'
-
+version '3.2.1'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
