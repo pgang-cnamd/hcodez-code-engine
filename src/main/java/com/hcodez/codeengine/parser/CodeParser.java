@@ -17,6 +17,9 @@ public class CodeParser {
 
     private static final Logger logger = LoggerFactory.getLogger(CodeParser.class);
 
+    /**
+     * CodeTypes that will pe parsed
+     */
     private final Set<CodeType> codeTypes;
 
 
@@ -67,22 +70,19 @@ public class CodeParser {
      * @return the list of codes
      */
     public List<Code> parseString(String input) {
-        logger.trace("parsing input string");
+        logger.debug("parsing input string");
+
+        /*if no code types are given, return an empty list*/
+        if (this.codeTypes.size() == 0) {
+            logger.warn("no code types specified");
+            return null;
+        }
 
         /*final code list*/
         final ArrayList<Code> finalCodeList = new ArrayList<>();
 
-        /*if no code types are given, return an empty list*/
-        if (this.codeTypes.size() == 0) {
-            logger.warn("no code types given for this parser");
-            return finalCodeList;
-        }
-
         /*clean up the input(remove all whitespaces and endlines*/
-        logger.trace("cleaning up the input string");
-        input = input.replaceAll("\\s+", "");
-        input = input.replaceAll("[\n\r]", "");
-        logger.info("parsing input string: {}", input);
+        input = cleanInput(input);
 
         /*
         initialize the raw parsing output before adding to it
@@ -94,16 +94,21 @@ public class CodeParser {
 
         /*extract raw codes and positions based on CodeType*/
         for (CodeType codeType : codeTypes) {
-            logger.trace("parsing for code type {}", codeType.toString());
+            logger.debug("parsing for code type {}", codeType.toString());
             /*initialize the current code type dependant raw parser output*/
             final CodeParserCodeTypeDependantRawOutput workingRawOutput = new CodeParserCodeTypeDependantRawOutput();
 
             /*create a new matcher that matches patterns on the given input String*/
+            List<Pattern> patterns = codeType.getPatterns();
+            if (patterns == null) {
+                logger.error("could not retrieve patterns for code type " + codeType.toString());
+                return null;
+            }
             for (final Pattern pattern : codeType.getPatterns()) {
                 final Matcher matcher = pattern.matcher(input);
 
                 while (matcher.find()) {
-                    logger.trace("found {}", getCodeFromMatcher(matcher, codeType).toString());
+                    logger.debug("found {}", getCodeFromMatcher(matcher, codeType).toString());
                     /*add the code in the workingRawOutput, along with it's start position*/
                     workingRawOutput.addParserProcessingMaterial(
                             new ParserProcessingMaterial(getCodeFromMatcher(matcher, codeType),
@@ -118,7 +123,7 @@ public class CodeParser {
             }
         }
 
-        logger.trace("sorting {} codes", universalCodeCount);
+        logger.debug("sorting {} codes", universalCodeCount);
 
         /*process(and sort) the codes into the final code list, then return it*/
         for (int localCodeCount = 0; localCodeCount < universalCodeCount; localCodeCount++) {
@@ -153,7 +158,7 @@ public class CodeParser {
             final ParserProcessingMaterial winningParserMaterial = winningCodeTypeDependantRawOutput.getCurrentParserProcessingMaterial();
 
             /*add the code in the final code list*/
-            logger.trace("sorting round won by {}" + winningParserMaterial.getCode().toString());
+            logger.debug("sorting round won by {}" + winningParserMaterial.getCode().toString());
             finalCodeList.add(
                     winningParserMaterial.getCode()
             );
@@ -175,22 +180,27 @@ public class CodeParser {
      * @return the code found
      */
     public Code parseSingle(String input) {
+        logger.debug("parsing input string for one code");
 
         if (this.codeTypes.size() == 0) {
+            logger.warn("no code types specified");
             return null;
         }
 
         /*clean up the input(remove all whitespaces and endlines*/
-        input = input.replaceAll("\\s+", "");
-        input = input.replaceAll("[\n\r]", "");
+        input = cleanInput(input);
 
         /*final code list*/
         final ArrayList<Code> finalCodeList = new ArrayList<>();
 
         /*find the first code for the first code type*/
         for (final CodeType codeType: this.codeTypes) {
-
             /*create matchers that match patterns on the given input String*/
+            List<Pattern> patterns = codeType.getPatterns();
+            if (patterns == null) {
+                logger.error("could not retrieve patterns for code type " + codeType.toString());
+                return null;
+            }
             for (final Pattern pattern : codeType.getPatterns()) {
                 final Matcher matcher = pattern.matcher(input);
                 if (matcher.find()) {
@@ -222,5 +232,14 @@ public class CodeParser {
             }
         }
         return codeBuilder.build();
+    }
+
+    private String cleanInput(String input) {
+        /*clean up the input(remove all whitespaces and endlines*/
+        logger.debug("cleaning up the input string");
+        input = input.replaceAll("\\s+", "");
+        input = input.replaceAll("[\n\r]", "");
+        logger.info("parsing input string: {}", input);
+        return input;
     }
 }
