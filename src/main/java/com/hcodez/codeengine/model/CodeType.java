@@ -54,7 +54,7 @@ public enum CodeType {
 
                     logger.info("loading regex lists from resources");
 
-                    InputStream inputStream = CodeType.class.getResourceAsStream("com/hcodez/codeengine/code_type_regular_expressions.json");
+                    InputStream inputStream = CodeType.class.getResourceAsStream("code_type_regular_expressions.json");
                     if (inputStream == null) {
                         logger.error("could not load resources");
                         return null;

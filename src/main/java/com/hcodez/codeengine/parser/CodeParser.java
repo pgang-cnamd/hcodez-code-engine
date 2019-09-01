@@ -69,7 +69,7 @@ public class CodeParser {
      * @param input the input string
      * @return the list of codes
      */
-    public List<Code> parseString(String input) {
+    public Set<Code> parseString(String input) {
         logger.debug("parsing input string");
 
         /*if no code types are given, return an empty list*/
@@ -79,7 +79,7 @@ public class CodeParser {
         }
 
         /*final code list*/
-        final ArrayList<Code> finalCodeList = new ArrayList<>();
+        final Set<Code> finalCodeList = new HashSet<>();
 
         /*clean up the input(remove all whitespaces and endlines*/
         input = cleanInput(input);

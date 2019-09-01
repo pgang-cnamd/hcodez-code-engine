@@ -1,8 +1,8 @@
 {
   "PRIVATE": [
       "<(?<identifier>[0-9a-zA-Z]{4})>",
-      "(?<identifier>[0-9a-zA-Z]{4})>",
-      "<(?<identifier>[0-9a-zA-Z]{4})"
+      "<(?<identifier>[0-9a-zA-Z]{4})[^@]",
+      "[^!([0-9a-zA-Z]{0,12})](?<identifier>[0-9a-zA-Z]{4})>"
   ],
 
   "PUBLIC_NO_PASSCODE": [
