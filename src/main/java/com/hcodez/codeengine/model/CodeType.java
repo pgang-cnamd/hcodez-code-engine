@@ -2,6 +2,8 @@ package com.hcodez.codeengine.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -21,6 +23,8 @@ public enum CodeType {
     PUBLIC_NO_PASSCODE,
     PUBLIC_WITH_PASSCODE;
 
+    private static final Logger logger = LoggerFactory.getLogger(CodeType.class);
+
     /**
      * Lists of guaranteed regular expressions for each code type.
      */
@@ -34,6 +38,7 @@ public enum CodeType {
      * @return the regular expression list
      */
     public List<String> getRegex() {
+        logger.debug("requested regular expressions for code type " + this.toString());
         /*
          * If regular expression lists are not loaded, load them now
          */
@@ -46,15 +51,24 @@ public enum CodeType {
                         || PUBLIC_NO_PASSCODE_REGEX_LIST == null
                         || PUBLIC_WITH_PASSCODE_REGEX_LIST == null) {
 
-                    InputStream inputStream = CodeType.class.getResourceAsStream("code_type_regular_expressions.json");
+                    logger.info("loading regex lists from resources");
+
+                    InputStream inputStream = CodeType.class.getResourceAsStream("com/hcodez/codeengine/code_type_regular_expressions.json");
+                    if (inputStream == null) {
+                        logger.error("could not load resources");
+                        return null;
+                    }
+                    logger.debug("loaded resource");
                     Gson gson = new Gson();
                     Map<String, List<String>> data = new HashMap<>();
                     Type typeToken = new TypeToken<Map<String, List<String>>>(){}.getType();
                     data = gson.fromJson(new InputStreamReader(inputStream), typeToken);
+                    logger.debug("extracted regex lists from resources");
 
                     PRIVATE_REGEX_LIST              = data.get(CodeType.PRIVATE.toString());
                     PUBLIC_NO_PASSCODE_REGEX_LIST   = data.get(CodeType.PUBLIC_NO_PASSCODE.toString());
                     PUBLIC_WITH_PASSCODE_REGEX_LIST = data.get(CodeType.PUBLIC_WITH_PASSCODE.toString());
+                    logger.debug("loaded regex lists from resources");
                 }
             }
         }
@@ -76,8 +90,14 @@ public enum CodeType {
      * @return the pattern
      */
     public List<Pattern> getPatterns() {
+        logger.debug("requested patterns for code type " + this.toString());
         final List<Pattern> patterns = new ArrayList<>();
-        for (String str : this.getRegex()) {
+        final List<String> regex = this.getRegex();
+        if (regex == null) {
+            logger.error("could not get regex strings");
+            return null;
+        }
+        for (String str : regex) {
             patterns.add(Pattern.compile(str));
         }
         return patterns;
@@ -88,8 +108,9 @@ public enum CodeType {
      *
      * @return an ArrayList with every CodeType availableg
      */
-    public static ArrayList<CodeType> all() {
-        final ArrayList<CodeType> allCodeTypes = new ArrayList<>();
+    public static List<CodeType> all() {
+        logger.debug("requested all code types");
+        final List<CodeType> allCodeTypes = new ArrayList<>();
 
         allCodeTypes.add(CodeType.PRIVATE);
         allCodeTypes.add(CodeType.PUBLIC_NO_PASSCODE);
