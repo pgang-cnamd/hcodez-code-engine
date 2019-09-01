@@ -2,6 +2,7 @@ package com.hcodez.codeengine.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hcodez.codeengine.json.serialization.GsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,11 +60,16 @@ public enum CodeType {
                         return null;
                     }
                     logger.debug("loaded resource");
-                    Gson gson = new Gson();
-                    Map<String, List<String>> data = new HashMap<>();
+                    Gson gson = GsonUtil.getGsonInstance();
+                    Map<String, List<String>> data;
                     Type typeToken = new TypeToken<Map<String, List<String>>>(){}.getType();
                     data = gson.fromJson(new InputStreamReader(inputStream), typeToken);
                     logger.debug("extracted regex lists from resources");
+
+                    if (data == null) {
+                        logger.error("null regex lists extracted; failed to load regex lists");
+                        return null;
+                    }
 
                     PRIVATE_REGEX_LIST              = data.get(CodeType.PRIVATE.toString());
                     PUBLIC_NO_PASSCODE_REGEX_LIST   = data.get(CodeType.PUBLIC_NO_PASSCODE.toString());

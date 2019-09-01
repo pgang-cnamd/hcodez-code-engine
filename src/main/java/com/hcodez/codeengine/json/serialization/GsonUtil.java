@@ -3,11 +3,15 @@ package com.hcodez.codeengine.json.serialization;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hcodez.codeengine.model.CodeType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class that provides utility methods for JSON serialization using Gson
  */
 public class GsonUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(GsonUtil.class);
 
     /**
      * The Gson instance
@@ -26,6 +30,7 @@ public class GsonUtil {
                             .registerTypeAdapter(CodeType.class, new CodeTypeSerializer())
                             .registerTypeAdapter(CodeType.class, new CodeTypeDeserializer())
                             .create();
+                    logger.info("created gson instance");
                 }
             }
         }
