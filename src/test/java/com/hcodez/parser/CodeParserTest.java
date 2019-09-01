@@ -1,33 +1,32 @@
 package com.hcodez.parser;
 
 import com.hcodez.codeengine.model.Code;
-import com.hcodez.codeengine.model.MutableCode;
 import com.hcodez.codeengine.model.CodeType;
+import com.hcodez.codeengine.model.MutableCode;
 import com.hcodez.codeengine.parser.CodeParser;
 import com.hcodez.util.CodeAssert;
 import com.hcodez.util.TestCommon;
-import org.junit.After;
+import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CodeParserTest {
 
-    @After
+    @Test
     public void parseStringTest() throws IOException {
 
         CodeParser codeParser = new CodeParser();
 
-        List<Code> parsedList = codeParser
+        Set<Code> parsedSet = codeParser
                 .addCodeTypes(CodeType.all())
                 .parseString(
                         TestCommon.getResourceAsString("/plain_text/code_parser_parse_string_test.txt")
                 );
 
-        ArrayList<Code> goodList = new ArrayList<>();
+        Set<Code> goodSet = new HashSet<>();
 
-        goodList.add(
+        goodSet.add(
                 MutableCode.builder()
                         .identifier("1111")
                         .owner("adasdasdas")
@@ -36,14 +35,14 @@ public class CodeParserTest {
                         .build()
         );
 
-        goodList.add(
+        goodSet.add(
                 MutableCode.builder()
                         .identifier("ab12")
                         .codeType(CodeType.PRIVATE)
                         .build()
         );
 
-        goodList.add(
+        goodSet.add(
                 MutableCode.builder()
                         .identifier("123B")
                         .owner("cezarmathe")
@@ -51,7 +50,7 @@ public class CodeParserTest {
                         .build()
         );
 
-        goodList.add(
+        goodSet.add(
                 MutableCode.builder()
                         .identifier("1111")
                         .owner("numelemeu")
@@ -60,32 +59,35 @@ public class CodeParserTest {
                         .build()
         );
 
-        for (int i = 0; i < parsedList.size(); i++) {
-            CodeAssert.assertThat(parsedList.get(i)).isEqualTo(goodList.get(i));
+        if (parsedSet.size() != goodSet.size()) {
+            throw new java.lang.IllegalStateException("test lists not equal in size; parsed list has "
+                    + parsedSet.size()
+                    + "; good list has "
+                    + goodSet.size());
+        }
+
+        Iterator<Code> goodSetIterator = goodSet.iterator();
+        Iterator<Code> parsedSetIterator = parsedSet.iterator();
+        while (goodSetIterator.hasNext()) {
+            CodeAssert.assertThat(goodSetIterator.next()).isEqualTo(parsedSetIterator.next());
         }
     }
 
-    @After
+    @Test
     public void parseSingleTest() throws IOException {
         CodeParser codeParser = new CodeParser();
 
-        List<Code> parsedList = codeParser
+        Code parsedCode = codeParser
                 .addCodeTypes(CodeType.all())
-                .parseString(
+                .parseSingle(
                         TestCommon.getResourceAsString("/plain_text/code_parser_parse_single_test.txt")
                 );
 
-        ArrayList<Code> goodList = new ArrayList<>();
+        Code goodCode = MutableCode.builder()
+                .identifier("aB1g")
+                .codeType(CodeType.PRIVATE)
+                .build();
 
-        goodList.add(
-                MutableCode.builder()
-                        .identifier("aB1g")
-                        .codeType(CodeType.PRIVATE)
-                        .build()
-        );
-
-        for (int i = 0; i < parsedList.size(); i++) {
-            CodeAssert.assertThat(parsedList.get(i)).isEqualTo(goodList.get(i));
-        }
+        CodeAssert.assertThat(parsedCode).isEqualTo(goodCode);
     }
 }
