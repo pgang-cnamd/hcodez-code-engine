@@ -239,6 +239,7 @@ public class CodeParser {
         logger.debug("cleaning up the input string");
         input = input.replaceAll("\\s+", "");
         input = input.replaceAll("[\n\r]", "");
+        input = input.toUpperCase(); // only for demo
         logger.info("parsing input string: {}", input);
         return input;
     }

@@ -11,7 +11,7 @@ public class IdentifierGenerator {
     /**
      * The regular expression of the identifier
      */
-    private static final String IDENTIFIER_REGEX = "[0-9a-zA-Z]{4}";
+    private static final String IDENTIFIER_REGEX = "[0-9A-Z]{4}";
 
     /**
      * The generator instance
